@@ -10,6 +10,7 @@ const Home = () => {
             <NavBouton text="Ajouter en favori" screen="AddFav" />
             <NavBouton text="Consulter les favoris" screen="Fav" />
             <NavBouton text="Ajouter une fleur" screen="AddFlower" />
+            <NavBouton text="S'identifier" screen="Identification" />
         </View>
     );
 }
