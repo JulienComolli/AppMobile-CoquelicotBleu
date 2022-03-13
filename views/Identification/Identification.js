@@ -1,55 +1,43 @@
 import React from "react"
-import { View, Image, Text } from "react-native";
+import { View, Image } from "react-native";
+import NavTouchable from "../../components/Boutons/NavTouchable";
 
 const Identification = () => {
     return (
-        <View style={ idStyle }>
-            <Image source={require('../../assets/adaptive-icon.png')} style={imageStyle} />
-        
-            <View style={buttonStyle}>
-                <View style={ {
-                    flex:1,
-                    fontWeight: 'bold',
-                    fontSize: 20,
-                    borderColor: 'black',
-                    borderWidth: 1,
-                    backgroundColor: '#C9C9F5',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                    } }><Text>SIGN IN</Text></View>
-                <View style={ {
-                    flex:1,
-                    fontWeight: 'bold',
-                    fontSize: 20,
-                    borderColor: 'black',
-                    borderWidth: 1,
-                    backgroundColor: '#C1F5B0',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                    } }><Text>SIGN UP</Text></View>
+        <View style={styles.screen}>
+            <Image source={require('../../assets/adaptive-icon.png')} style={styles.image} />
+            <View style={styles.touchableContainers}>
+                <NavTouchable text="sign in" screen="Fav" touchableStyle={styles.signInTouchable} />
+                <NavTouchable text="sign up" screen="AddFav" touchableStyle={ styles.signUpTouchable } />
             </View>
         </View>
     );
 }
 
-const idStyle = {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: '#BCDAF5',
-    alignSelf: "stretch"
-}
-
-const imageStyle = {
-    flex: 3,
-    width: 250,
-    height: 250,
-}
-
-const buttonStyle = {
-    flex: 1,
-    alignSelf: 'stretch',
-    flexDirection: 'row'
-}
-
 export default Identification;
+const styles = {
+    screen: {
+        flex: 1,
+        alignItems: "center",
+        backgroundColor: '#BCDAF5'
+    },
+    image: {
+        flex: 3,
+        width: 500,
+        height: 500
+    },
+    touchableContainers: {
+        flex: 1,
+        alignSelf: 'stretch',
+        // buttons on left and right of each others 
+        flexDirection: 'row',
+        // buttons on top and bottom of each others
+//        flexDirection: 'columns'
+    },
+    signInTouchable: {
+        backgroundColor: "#C9C9F5"
+    },
+    signUpTouchable: {
+        backgroundColor: "#C1F5B0"
+    }
+};
