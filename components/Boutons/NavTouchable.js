@@ -34,7 +34,7 @@ const defaultStyles = {
         justifyContent: 'center',
         borderColor: 'black',
         borderWidth: 1,
-        borderRadius: 10
+        borderRadius: 10,
     },
     text: {
         textTransform: 'uppercase',
