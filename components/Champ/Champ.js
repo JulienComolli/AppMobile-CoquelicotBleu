@@ -2,11 +2,11 @@ import React from "react"
 import { StyleSheet, Text, View, TextInput } from "react-native";
 
 
-const Champ = ({title, placeholder, password}) => {
+const Champ = ({title, placeholder, password, setText}) => {
     return (
         <View style={styles.champ}>
             <Text style={styles.inputText}>{title}</Text>
-            <TextInput secureTextEntry={password} placeholder={placeholder} style={styles.input} />
+            <TextInput secureTextEntry={password} placeholder={placeholder} style={styles.input} onChangeText={newText => {setText(newText)}}/>
         </View>
     );
 }

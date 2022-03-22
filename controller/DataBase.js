@@ -2,7 +2,6 @@
 import { initializeApp } from 'firebase/app';
 import { signInWithEmailAndPassword, getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { getDatabase } from "firebase/database";
-import { getAnalytics } from "firebase/analytics";
 
 const firebaseConfig = {
   apiKey: "AIzaSyD9x7oMMZEA0tOV5ACHus04TgmYkQV1SWs",
@@ -16,6 +15,21 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 
 const data = getDatabase(app);
+const auth = getAuth(app);
+
+export function sign_in(email, password){
+  if (email !== "" && password !== "")
+    signInWithEmailAndPassword(auth, email, password)
+    .then((usr) => {console.log(usr.user)})
+    .catch(() => {console.log("mdp incorrect")})
+}
+
+export function sign_up(email, password){
+  if (email !== "" && password !== "")
+  createUserWithEmailAndPassword(auth, email, password)
+  .then((usr) => {console.log(usr.user.uid)})
+  .catch(() => {console.log("Erreur inscription")})
+}
+

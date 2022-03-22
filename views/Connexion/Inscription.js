@@ -2,26 +2,28 @@ import {React, useState} from "react"
 import { StyleSheet, Text, View, TextInput } from "react-native";
 import NavTouchable from "../../components/Boutons/NavTouchable";
 import Champ from "../../components/Champ/Champ";
-import sign_in from "../../controller/DataBase";
+import sign_up from "../../controller/DataBase";
 
 const Connexion = () => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
+    const [confirmPassword, setConfirmPassword] = useState();
     return (
         <View style={styles.screen}>
             <View style={styles.form}>
                 <Champ title="Nom d'utilisateur" placeholder="Nom d'utilisateur" setText={setEmail}/>
                 <Champ title="Mot de passe" placeholder="**********" password={true} setText={setPassword}/>
-                <NavTouchable text="log in" touchableStyle={ styles.signUpTouchable } onPress={()=>log_in(email, password)}/>
+                <Champ title="Mot de passe" placeholder="**********" password={true} setText={setConfirmPassword}/>
+                <NavTouchable text="log in" touchableStyle={ styles.signUpTouchable } onPress={()=>sign_up(email, password)}/>
             </View>
         </View>
     );
 }
 
-const log_in = async(email, password) => {
+const sign_up = async(email, password) => {
     console.log("email = " + email)
     console.log("password = " + password)
-    sign_in(email, password)
+    sign_up(email, password)
 }
 
 
