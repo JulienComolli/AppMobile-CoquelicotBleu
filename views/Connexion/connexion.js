@@ -1,29 +1,23 @@
-import {React, useState} from "react"
+import {React, useState, useContext} from "react"
 import { StyleSheet, Text, View, TextInput } from "react-native";
 import NavTouchable from "../../components/Boutons/NavTouchable";
 import Champ from "../../components/Champ/Champ";
-import sign_in from "../../controller/DataBase";
+import AppContext from "../../components/ContextProvider";
 
 const Connexion = () => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
+    const globalVars = useContext(AppContext);
     return (
         <View style={styles.screen}>
             <View style={styles.form}>
                 <Champ title="Nom d'utilisateur" placeholder="Nom d'utilisateur" setText={setEmail}/>
                 <Champ title="Mot de passe" placeholder="**********" password={true} setText={setPassword}/>
-                <NavTouchable text="log in" touchableStyle={ styles.signUpTouchable } onPress={()=>log_in(email, password)}/>
+                <NavTouchable text="log in" touchableStyle={ styles.signUpTouchable } onPress={async () => await globalVars.log_in(email, password)}/>
             </View>
         </View>
     );
 }
-
-const log_in = async(email, password) => {
-    console.log("email = " + email)
-    console.log("password = " + password)
-    sign_in(email, password)
-}
-
 
 export default Connexion;
 

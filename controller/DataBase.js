@@ -19,11 +19,16 @@ const app = initializeApp(firebaseConfig);
 const data = getDatabase(app);
 const auth = getAuth(app);
 
-export function sign_in(email, password){
+export async function sign_in (email, password){
   if (email !== "" && password !== "")
     signInWithEmailAndPassword(auth, email, password)
-    .then((usr) => {console.log(usr.user)})
-    .catch(() => {console.log("mdp incorrect")})
+    .then((usr) => {
+      return true;
+    })
+    .catch(() => {
+      console.log("mdp incorrect");
+      return false;
+    })
 }
 
 export function sign_up(email, password){
