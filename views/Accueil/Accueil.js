@@ -1,7 +1,4 @@
 import { View, Text } from 'react-native';
-import AppContext from "../../components/ContextProvider";
-import { useContext } from "react";
-
 const Home = () => {
 
     return (

@@ -3,8 +3,8 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import Home from "../views/Accueil/Accueil";
 import SectionFleur from "./FlowerTabs";
-import APropos from "../views/APropos";
-import Deconnexion from "../views/Deconnexion";
+import APropos from "../views/APropos/APropos";
+import Deconnexion from "../views/Deconnexion/Deconnexion"
 
 const Drawer = createDrawerNavigator();
 

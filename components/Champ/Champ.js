@@ -32,7 +32,6 @@ const styles = StyleSheet.create({
     inputText: {
         fontSize: 13,
         fontWeight: '900',
-        textTransform: 'uppercase',
         color: 'black',
     }
 });
