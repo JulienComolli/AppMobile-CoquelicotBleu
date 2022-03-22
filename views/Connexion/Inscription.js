@@ -1,5 +1,5 @@
 import {React, useState} from "react"
-import { StyleSheet, Text, View, TextInput } from "react-native";
+import { View } from "react-native";
 import NavTouchable from "../../components/Boutons/NavTouchable";
 import Champ from "../../components/Champ/Champ";
 import sign_up from "../../controller/DataBase";

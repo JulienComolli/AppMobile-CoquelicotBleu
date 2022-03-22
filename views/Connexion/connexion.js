@@ -1,5 +1,5 @@
 import {React, useState, useContext} from "react"
-import { StyleSheet, Text, View, TextInput } from "react-native";
+import { View } from "react-native";
 import NavTouchable from "../../components/Boutons/NavTouchable";
 import Champ from "../../components/Champ/Champ";
 import AppContext from "../../components/ContextProvider";

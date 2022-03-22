@@ -1,7 +1,7 @@
 import * as React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Identification from "../views/Identification/Identification";
-import Connexion from "../views/Connexion/Connexion";
+import Connexion from "../views/Connexion/connexion";
 
 const Stack = createNativeStackNavigator();
 
