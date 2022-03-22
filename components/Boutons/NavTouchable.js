@@ -1,8 +1,12 @@
 import { TouchableOpacity, Text, StyleSheet } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 
-const NavTouchable = ({ text, screen, touchableStyle, textStyle }) => {
+const NavTouchable = ({ text, screen, touchableStyle, textStyle, onPress }) => {
     const navigation = useNavigation();
+    if(onPress == undefined || onPress == null) {
+        onPress = () => { navigation.navigate(screen) };
+    }
+
     const styles = StyleSheet.create({
         touchable: { 
             ...defaultStyles.touchable,
@@ -16,7 +20,7 @@ const NavTouchable = ({ text, screen, touchableStyle, textStyle }) => {
     return (
         <TouchableOpacity
             style={styles.touchable}
-            onPress={() => { navigation.navigate(screen) }}
+            onPress={ onPress }
         >
             <Text style={styles.text}>
                 {text}
@@ -29,7 +33,6 @@ export default NavTouchable;
 
 const defaultStyles = {
     touchable: {
-        flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
         borderColor: 'black',

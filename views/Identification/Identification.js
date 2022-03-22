@@ -7,7 +7,7 @@ const Identification = () => {
         <View style={styles.screen}>
             <Image source={require('../../assets/adaptive-icon.png')} style={styles.image} />
             <View style={styles.touchableContainers}>
-                <NavTouchable text="sign in" screen="Fav" touchableStyle={styles.signInTouchable} />
+                <NavTouchable text="sign in" screen="Connexion" touchableStyle={styles.signInTouchable} />
                 <NavTouchable text="sign up" screen="AddFav" touchableStyle={ styles.signUpTouchable } />
             </View>
         </View>
@@ -15,6 +15,7 @@ const Identification = () => {
 }
 
 export default Identification;
+
 const styles = {
     screen: {
         flex: 1,
@@ -30,14 +31,16 @@ const styles = {
         flex: 1,
         alignSelf: 'stretch',
         // buttons on left and right of each others 
-        flexDirection: 'row',
+        // flexDirection: 'row',
         // buttons on top and bottom of each others
-//        flexDirection: 'columns'
+        flexDirection: 'columns'
     },
     signInTouchable: {
+        flex: 1,
         backgroundColor: "#C9C9F5"
     },
     signUpTouchable: {
+        flex: 1,
         backgroundColor: "#C1F5B0"
     }
 };
