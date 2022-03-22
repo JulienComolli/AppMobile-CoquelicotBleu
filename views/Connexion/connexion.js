@@ -13,7 +13,7 @@ const Connexion = () => {
             <View style={styles.form}>
                 <Champ title="Nom d'utilisateur" placeholder="Nom d'utilisateur" setText={setEmail}/>
                 <Champ title="Mot de passe" placeholder="**********" password={true} setText={setPassword}/>
-                <NavTouchable text="log in" touchableStyle={ styles.signUpTouchable } onPress={async () => await globalVars.log_in(email, password)}/>
+                <NavTouchable text="log in" touchableStyle={ styles.signUpTouchable } onPress={async () => { globalVars.log_in(email, password); } }/>
             </View>
         </View>
     );

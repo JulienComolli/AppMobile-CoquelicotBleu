@@ -12,7 +12,7 @@ export default function Router() {
 
     return (
         <NavigationContainer>
-            {globalVars.userLogged ?  <AppNavigationDrawer /> : <LoginNavigation />}
+            {globalVars.user ? <AppNavigationDrawer /> : <LoginNavigation />}
         </NavigationContainer>
     )
 
