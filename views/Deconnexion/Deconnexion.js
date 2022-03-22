@@ -1,7 +1,7 @@
 import { View, Text, Button } from "react-native";
-import { basicStyle } from "../styles/globalStyle.js";
+import { basicStyle } from "../../styles/globalStyle.js";
 import { useContext } from "react";
-import AppContext from "../components/ContextProvider.js";
+import AppContext from "../../components/ContextProvider.js";
 
 
 
