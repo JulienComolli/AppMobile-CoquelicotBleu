@@ -8,7 +8,7 @@ const Identification = () => {
             <Image source={require('../../assets/adaptive-icon.png')} style={styles.image} />
             <View style={styles.touchableContainers}>
                 <NavTouchable text="sign in" screen="Connexion" touchableStyle={styles.signInTouchable} />
-                <NavTouchable text="sign up" screen="AddFav" touchableStyle={ styles.signUpTouchable } />
+                <NavTouchable text="sign up" screen="Inscription" touchableStyle={ styles.signUpTouchable } />
             </View>
         </View>
     );

@@ -1,33 +1,28 @@
-import {React, useState} from "react"
+import {React, useState, useContext} from "react"
 import { View } from "react-native";
 import NavTouchable from "../../components/Boutons/NavTouchable";
 import Champ from "../../components/Champ/Champ";
-import sign_up from "../../controller/DataBase";
+import AppContext from "../../components/ContextProvider";
 
-const Connexion = () => {
+const Inscription = () => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const [confirmPassword, setConfirmPassword] = useState();
+
+    const globalVars = useContext(AppContext);
     return (
         <View style={styles.screen}>
             <View style={styles.form}>
-                <Champ title="Nom d'utilisateur" placeholder="Nom d'utilisateur" setText={setEmail}/>
+                <Champ title="eMail" placeholder="eMail" setText={setEmail}/>
                 <Champ title="Mot de passe" placeholder="**********" password={true} setText={setPassword}/>
-                <Champ title="Mot de passe" placeholder="**********" password={true} setText={setConfirmPassword}/>
-                <NavTouchable text="log in" touchableStyle={ styles.signUpTouchable } onPress={()=>sign_up(email, password)}/>
+                <Champ title="Confirme Mot de passe" placeholder="**********" password={true} setText={setConfirmPassword}/>
+                <NavTouchable text="log in" touchableStyle={ styles.signUpTouchable } onPress={async () => await globalVars.register(email, password)}/>
             </View>
         </View>
     );
 }
 
-const sign_up = async(email, password) => {
-    console.log("email = " + email)
-    console.log("password = " + password)
-    sign_up(email, password)
-}
-
-
-export default Connexion;
+export default Inscription;
 
 const styles = {
     screen: {

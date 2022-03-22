@@ -31,10 +31,15 @@ export async function sign_in (email, password) {
     }
   }
 
-export function sign_up(email, password){
-  if (email !== "" && password !== "")
-  createUserWithEmailAndPassword(auth, email, password)
-  .then((usr) => {console.log(usr.user.uid)})
-  .catch(() => {console.log("Erreur inscription")})
+export async function sign_up(email, password){
+  if (email !== "" && password !== "") {
+    return await createUserWithEmailAndPassword(auth, email, password)
+    .then((usr) => {
+      return usr;
+    })
+    .catch(() => {
+      return null;
+    })
+  }
 }
 

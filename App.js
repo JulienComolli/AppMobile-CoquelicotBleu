@@ -17,10 +17,15 @@ export default function App() {
         setUser(await sign_in(email, password));
     }
 
+    const register = async(email, password) => {
+        setUser(await sign_up(email, password));
+    }
+
     const GLOBAL = {
         user,
         unlogUser,
         log_in,
+        register
     }
 
     return (
