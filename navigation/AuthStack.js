@@ -1,6 +1,7 @@
 import * as React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Identification from "../views/Identification/Identification";
+import Connexion from "../views/Connexion/Connexion";
 
 const Stack = createNativeStackNavigator();
 
@@ -10,6 +11,7 @@ export default function LoginNavigation() {
             headerShown: false
         }}>
             <Stack.Screen name="Identification" component={Identification} />
+            <Stack.Screen name="Connexion" component={Connexion} />
         </Stack.Navigator>
     );
 }

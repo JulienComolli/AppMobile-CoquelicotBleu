@@ -8,8 +8,8 @@ const Connexion = () => {
         <View style={styles.screen}>
             <View style={styles.form}>
                 <Champ title="Nom d'utilisateur" placeholder="KARIM"/>
-                <Champ title="Mot de passe" placeholder="deschamps78" password={true}/>
-                <NavTouchable touchableStyle={styles.button} />
+                <Champ title="Mot de passe" placeholder="**********" password={true}/>
+                <NavTouchable text="log in" touchableStyle={ styles.signUpTouchable } />
             </View>
         </View>
     );
@@ -17,21 +17,24 @@ const Connexion = () => {
 
 export default Connexion;
 
-const styles = StyleSheet.create({
+const styles = {
     screen: {
         flex: 1,
         backgroundColor: '#BCDAF5'
     },    
     form: {
         alignItems: 'center',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        margin: 15,
     },
     signInTouchable: {
         backgroundColor: "#C9C9F5"
     },
-    button: {
-        backgroundColor:"red",
+    signUpTouchable: {
+        backgroundColor: "#C9C9F5",
         width: 330,
-        height: 52,
+        height: 54,
+        margin: 15,
+        borderWidth: 2,
     }
-});
+};

@@ -2,8 +2,8 @@ import { TouchableOpacity, Text, StyleSheet } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 
 const NavTouchable = ({ text, screen, touchableStyle, textStyle, onPress }) => {
-    const navigation = useNavigation();
     if(onPress == undefined || onPress == null) {
+        const navigation = useNavigation();
         onPress = () => { navigation.navigate(screen) };
     }
 
