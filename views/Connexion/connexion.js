@@ -2,18 +2,19 @@ import {React, useState, useContext} from "react"
 import { View } from "react-native";
 import NavTouchable from "../../components/Boutons/NavTouchable";
 import Champ from "../../components/Champ/Champ";
-import AppContext from "../../components/ContextProvider";
+import { AuthContext } from "../../context/AuthContext";
 
 const Connexion = () => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
-    const globalVars = useContext(AppContext);
+    const { log_in } = useContext(AuthContext);
+    
     return (
         <View style={styles.screen}>
             <View style={styles.form}>
                 <Champ title="Nom d'utilisateur" placeholder="Nom d'utilisateur" setText={setEmail}/>
                 <Champ title="Mot de passe" placeholder="**********" password={true} setText={setPassword}/>
-                <NavTouchable text="log in" touchableStyle={ styles.signInTouchable } onPress={async () => await globalVars.log_in(email, password)}/>
+                <NavTouchable text="log in" touchableStyle={ styles.signInTouchable } onPress={async () => await log_in(email, password)}/>
             </View>
         </View>
     );
