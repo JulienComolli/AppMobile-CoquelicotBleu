@@ -44,7 +44,8 @@ const defaultStyles = {
         fontWeight: '900',
         height: 52,
         borderWidth: 2,
-        paddingLeft: 20
+        paddingLeft: 20,
+        paddingRight: 20
     },
     inputText: {
         fontSize: 13,
