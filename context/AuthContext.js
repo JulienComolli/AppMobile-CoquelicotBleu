@@ -29,30 +29,6 @@ export const AuthProvider = ({ children }) => {
     []
   );
 
-  /*const unlogUser = () => {
-setUser(null);
-};
-
-const log_in = async (email, password) => {
-setUser(await sign_in(email, password));
-};
-
-const register = async (email, password) => {
-setUser(await sign_up(email, password));
-};
-
-const new_flower = async (name, description) => {
-await add_flower(name, description);
-};
-
-const GLOBAL = {
-user,
-unlogUser,
-log_in,
-register,
-new_flower,
-};*/
-
   return (
     <AuthContext.Provider value={{ ...authSystem, user }}>
       {children}
