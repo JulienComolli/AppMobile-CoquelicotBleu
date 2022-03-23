@@ -1,7 +1,7 @@
 // Initialisation bdd
 import { initializeApp } from 'firebase/app';
 import { signInWithEmailAndPassword, getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { getDatabase, ref, set } from "firebase/database";
+import { getDatabase, ref, push } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: "AIzaSyD9x7oMMZEA0tOV5ACHus04TgmYkQV1SWs",
@@ -45,7 +45,7 @@ export async function sign_up(email, password){
 
 export async function add_flower(name, description) {
   if (name !== "") {
-    return await set(ref(data, '/Fleurs/2'), {
+    return await push(ref(data, '/Fleurs/'), {
       name: name,
       description: description,
     })
