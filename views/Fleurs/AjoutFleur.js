@@ -1,27 +1,63 @@
-import {React, useState, useContext} from "react";
-import { View } from "react-native";
+import { React, useState, useContext } from "react";
+import { View, Image, StyleSheet, ScrollView } from "react-native";
+import { AntDesign } from "@expo/vector-icons";
+import * as ImagePicker from 'expo-image-picker';
 
 import { AuthContext } from "../../context/AuthContext";
 import NavTouchable from "../../components/Boutons/NavTouchable";
 import Champ from "../../components/Champ/Champ";
 
+const description_rose = "La rose est la fleur du rosier, elle se caractérise avant tout par la multiplication de ses pétales imbriqués, qui lui donne sa forme caracteristique.";
 
 const AjoutFleur = () => {
     const [nom, setNom] = useState();
     const [description, setDescription] = useState();
     const { new_flower } = useContext(AuthContext);
 
+    const [selectedImage, setSelectedImage] = useState(null);
+    let openImagePickerAsync = async () => {
+        let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+        if (permissionResult.granted === false) {
+            alert("Acceptez !");
+            return;
+        }
+
+
+        let pickerResult = await ImagePicker.launchImageLibraryAsync();
+
+        if (pickerResult.cancelled === true) {
+            alert("Choisissez !");
+            return;
+        }
+        console.log(pickerResult.uri)
+        setSelectedImage({ pickerResult: pickerResult });
+    };
+
     return (
-        <View style={styles.screen}>
-            <View style={styles.form}>
-                <Champ title="Nom de la fleur" placeholder="Tulipe" setText={setNom}/>
-                <Champ title="Description" placeholder={description_rose} setText={setDescription} multiligne={true}  
-                champStyle={ styles.description.champ } inputStyle={ styles.description.input} />
-                {/* Affiche le contenu des deux champs dans la console. */}
-                <NavTouchable text="Ajouter une fleur" onPress={ async () => await new_flower(nom, description) } touchableStyle={ styles.addTouchable }/>
-            </View>
-        </View>
+
+        <ScrollView contentContainerStyle={styles.screen}>
+            <Champ title="Nom de la fleur" placeholder="Tulipe" setText={setNom} />
+            <Champ title="Description" placeholder={description_rose} setText={setDescription} multiligne={true}
+                champStyle={styles.description.champ} inputStyle={styles.description.input} />
+            {/* Affiche le contenu des deux champs dans la console. */}
+            <NavTouchable text="Ajouter une photo" onPress={openImagePickerAsync} touchableStyle={styles.addTouchable} />
+
+
+            {selectedImage ?
+                <>
+                    <View style={{ flexDirection: "row" }}>
+                        <Image source={{ uri: selectedImage.pickerResult.uri }} style={stylesa.thumbnail} />
+                        <AntDesign onPress={() => { setSelectedImage(null) }} name="closecircle" size={20} color="black" />
+                    </View>
+                    <NavTouchable text="Create a flower" onPress={() => { new_flower(nom, description) } } touchableStyle={styles.validate} />
+                </> : false}
+
+
+        </ScrollView>
+
     );
+
 }
 
 
@@ -31,9 +67,6 @@ const styles = {
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: '#BCDAF5'
-    },
-    form: {
-        alignItems: 'center',
     },
     addTouchable: {
         backgroundColor: "#F5D5F0",
@@ -49,8 +82,22 @@ const styles = {
         input: {
             height: 120
         }
+    },
+    validate: {
+        backgroundColor: '#9B233B',
+        width: 300,
+        height: 54,
+        margin: 15,
+        borderWidth: 2,
     }
 };
 
-let description_rose = "La rose est la fleur du rosier, elle se caractérise avant tout par la multiplication de ses pétales imbriqués, qui lui donne sa forme caractéristique.";
+const stylesa = StyleSheet.create({
+    /* Other styles hidden to keep the example brief... */
+    thumbnail: {
+        width: 200,
+        height: 200,
+        resizeMode: 'contain'
+    }
+});
 export default AjoutFleur;
