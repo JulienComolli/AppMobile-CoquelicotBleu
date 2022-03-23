@@ -1,20 +1,21 @@
-import {React, useState, useContext} from "react"
+import { React, useState, useContext } from "react"
 import { View } from "react-native";
+import { AuthContext } from "../../context/AuthContext";
+
 import NavTouchable from "../../components/Boutons/NavTouchable";
 import Champ from "../../components/Champ/Champ";
-import { AuthContext } from "../../context/AuthContext";
 
 const Connexion = () => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const { log_in } = useContext(AuthContext);
-    
+
     return (
         <View style={styles.screen}>
             <View style={styles.form}>
-                <Champ title="Nom d'utilisateur" placeholder="Nom d'utilisateur" setText={setEmail}/>
-                <Champ title="Mot de passe" placeholder="**********" password={true} setText={setPassword}/>
-                <NavTouchable text="log in" touchableStyle={ styles.signInTouchable } onPress={async () => await log_in(email, password)}/>
+                <Champ title="Nom d'utilisateur" placeholder="Nom d'utilisateur" setText={setEmail} />
+                <Champ title="Mot de passe" placeholder="**********" password={true} setText={setPassword} />
+                <NavTouchable text="log in" touchableStyle={styles.signInTouchable} onPress={async () => await log_in(email, password)} />
             </View>
         </View>
     );
@@ -26,7 +27,7 @@ const styles = {
     screen: {
         flex: 1,
         backgroundColor: '#BCDAF5'
-    },    
+    },
     form: {
         alignItems: 'center',
         justifyContent: 'space-between',
