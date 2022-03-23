@@ -1,18 +1,17 @@
-import { View, Text, Button } from "react-native";
-import { basicStyle } from "../../styles/globalStyle.js";
 import { useContext } from "react";
-import AppContext from "../../components/ContextProvider.js";
-
+import { View, Text, Button } from "react-native";
+import { basicStyle } from "../../assets/styles/globalStyle.js";
+import { AuthContext } from "../../context/AuthContext.js";
 
 
 export default function Deconnexion() {
 
-    const globalVars = useContext(AppContext);
+    const { unlogUser } = useContext(AuthContext);
 
     return (
         <View style={basicStyle}>
             <Text>Section à pour se deconnecter.</Text>
-            <Button onPress={() => { globalVars.unlogUser(); }} title="Deconnexion" />
+            <Button onPress={() => { unlogUser(); }} title="Deconnexion" />
         </View>
     );
 }

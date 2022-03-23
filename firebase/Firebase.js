@@ -50,10 +50,10 @@ export async function add_flower(name, description) {
       description: description,
     })
     .then(() => {
-      return true
+      return true;
     })
     .catch(()=>{
-      return false
+      return false;
     })
   }
 }

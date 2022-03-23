@@ -1,6 +1,5 @@
 import * as React from "react";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
 import { Ionicons, MaterialIcons, AntDesign } from "@expo/vector-icons";
 
 import AddFlowerView from "../views/Fleurs/AjoutFleur";

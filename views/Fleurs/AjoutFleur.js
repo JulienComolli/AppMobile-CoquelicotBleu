@@ -1,14 +1,16 @@
 import {React, useState, useContext} from "react";
 import { View } from "react-native";
+
+import { AuthContext } from "../../context/AuthContext";
 import NavTouchable from "../../components/Boutons/NavTouchable";
 import Champ from "../../components/Champ/Champ";
-import AppContext from "../../components/ContextProvider";
 
 
 const AjoutFleur = () => {
     const [nom, setNom] = useState();
     const [description, setDescription] = useState();
-    const globalVars = useContext(AppContext);
+    const { new_flower } = useContext(AuthContext);
+
     return (
         <View style={styles.screen}>
             <View style={styles.form}>
@@ -16,7 +18,7 @@ const AjoutFleur = () => {
                 <Champ title="Description" placeholder={description_rose} setText={setDescription} multiligne={true}  
                 champStyle={ styles.description.champ } inputStyle={ styles.description.input} />
                 {/* Affiche le contenu des deux champs dans la console. */}
-                <NavTouchable text="Ajouter une fleur" onPress={ async () => await globalVars.new_flower(nom, description) } touchableStyle={ styles.addTouchable }/>
+                <NavTouchable text="Ajouter une fleur" onPress={ async () => await new_flower(nom, description) } touchableStyle={ styles.addTouchable }/>
             </View>
         </View>
     );
