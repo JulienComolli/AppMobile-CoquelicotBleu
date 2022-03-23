@@ -1,34 +1,54 @@
+import {React, useState, useContext} from "react";
 import { View } from "react-native";
+import NavTouchable from "../../components/Boutons/NavTouchable";
+import Champ from "../../components/Champ/Champ";
+import AppContext from "../../components/ContextProvider";
 
 
-const AddFlowerView = () => {
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
+const AjoutFleur = () => {
+    const [nom, setNom] = useState();
+    const [description, setDescription] = useState();
     const globalVars = useContext(AppContext);
     return (
         <View style={styles.screen}>
             <View style={styles.form}>
-                <Champ title="Nom d'utilisateur" placeholder="Nom d'utilisateur" setText={setEmail}/>
-                <Champ title="Mot de passe" placeholder="**********" password={true} setText={setPassword}/>
-                <NavTouchable text="log in" touchableStyle={ styles.addFlowerTouchable } onPress={async () => await globalVars.log_in(email, password)}/>
+                <Champ title="Nom de la fleur" placeholder="Tulipe" setText={setNom}/>
+                <Champ title="Description" placeholder={description_rose} setText={setDescription} multiligne={true}  
+                champStyle={ styles.description.champ } inputStyle={ styles.description.input} />
+                {/* Affiche le contenu des deux champs dans la console. */}
+                <NavTouchable text="Ajouter une fleur" onPress={ async () => await console.log(nom, description) } touchableStyle={ styles.addTouchable }/>
             </View>
         </View>
     );
 }
 
+
 const styles = {
     screen: {
-
-    },
-    form: {
-
-    },
-    addFlowerTouchable: {
         flex: 1,
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
+        backgroundColor: '#BCDAF5'
+    },
+    form: {
+        alignItems: 'center',
+    },
+    addTouchable: {
+        backgroundColor: "#F5D5F0",
+        width: 300,
+        height: 54,
+        margin: 15,
+        borderWidth: 2,
+    },
+    description: {
+        champ: {
+            height: 130
+        },
+        input: {
+            height: 120
+        }
     }
-}
+};
 
-
-export default AddFlowerView;
+let description_rose = "La rose est la fleur du rosier, elle se caractérise avant tout par la multiplication de ses pétales imbriqués, qui lui donne sa forme caractéristique.";
+export default AjoutFleur;

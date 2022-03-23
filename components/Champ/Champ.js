@@ -2,18 +2,35 @@ import React from "react"
 import { StyleSheet, Text, View, TextInput } from "react-native";
 
 
-const Champ = ({title, placeholder, password, setText}) => {
+const Champ = ({title, placeholder, password, setText, multiligne, inputStyle, champStyle, inputText}) => {
+
+    const styles = StyleSheet.create({
+        champ: { 
+            ...defaultStyles.champ,
+            ...champStyle
+        },
+        input: {
+            ...defaultStyles.input,
+            ...inputStyle
+        },
+        inputText: {
+            ...defaultStyles.inputText,
+            ...inputText
+        }
+    });
+
+    
     return (
         <View style={styles.champ}>
             <Text style={styles.inputText}>{title}</Text>
-            <TextInput secureTextEntry={password} placeholder={placeholder} style={styles.input} onChangeText={newText => {setText(newText)}}/>
+            <TextInput multiline={multiligne} secureTextEntry={password} placeholder={placeholder} style={styles.input} onChangeText={newText => {setText(newText)}}/>
         </View>
     );
 }
 
 export default Champ;
 
-const styles = StyleSheet.create({
+const defaultStyles = {
     champ: {
         alignSelf: 'center',
         height: 70,
@@ -34,4 +51,4 @@ const styles = StyleSheet.create({
         fontWeight: '900',
         color: 'black',
     }
-});
+};
