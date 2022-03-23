@@ -3,7 +3,7 @@ import * as React from "react";
 import AppContext from './components/ContextProvider';
 import { useState, useEffect } from 'react';
 import Router from './navigation/Router';
-import { sign_in, sign_up } from './controller/DataBase';
+import { sign_in, sign_up, add_flower } from './controller/DataBase';
 
 export default function App() {
     
@@ -21,11 +21,16 @@ export default function App() {
         setUser(await sign_up(email, password));
     }
 
+    const new_flower = async(name, description) => {
+        await add_flower(name, description);
+    }
+
     const GLOBAL = {
         user,
         unlogUser,
         log_in,
-        register
+        register,
+        new_flower
     }
 
     return (

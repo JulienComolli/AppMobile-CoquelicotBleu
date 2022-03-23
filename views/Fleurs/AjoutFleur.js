@@ -16,7 +16,7 @@ const AjoutFleur = () => {
                 <Champ title="Description" placeholder={description_rose} setText={setDescription} multiligne={true}  
                 champStyle={ styles.description.champ } inputStyle={ styles.description.input} />
                 {/* Affiche le contenu des deux champs dans la console. */}
-                <NavTouchable text="Ajouter une fleur" onPress={ async () => await console.log(nom, description) } touchableStyle={ styles.addTouchable }/>
+                <NavTouchable text="Ajouter une fleur" onPress={ async () => await globalVars.new_flower(nom, description) } touchableStyle={ styles.addTouchable }/>
             </View>
         </View>
     );
