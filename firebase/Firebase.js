@@ -2,6 +2,7 @@
 import { initializeApp } from 'firebase/app';
 import { signInWithEmailAndPassword, getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { getDatabase, ref, push } from "firebase/database";
+import { getStorage, uploadBytes } from "firebase/storage"
 
 const firebaseConfig = {
   apiKey: "AIzaSyD9x7oMMZEA0tOV5ACHus04TgmYkQV1SWs",
@@ -18,6 +19,28 @@ const app = initializeApp(firebaseConfig);
 
 const data = getDatabase(app);
 const auth = getAuth(app);
+const storage = getStorage(app);
+
+// async function getExistingFlower() {
+//   await get(child(ref(data), 'Fleurs/')) //Obtenir toutes les fleurs enregistrées
+//   .then((snapshot) => {
+//     var liste_ID = Object.keys(snapshot.val())
+//      liste_ID.forEach(fleurID =>  {
+//       get(child(ref(data), 'Fleurs/' + fleurID + '/name')) //Obtenir le nom de la fleur
+//       .then((snapshot2) => {
+//         console.log(snapshot2)
+//       })
+//       .catch((err) => {
+//         console.log(err)
+//       })
+//     });
+
+//   })
+//   .catch((err) => {
+//     console.log(err)
+//   })
+// }
+
 
 export async function sign_in (email, password) {
     if (email !== "" && password !== "") {
@@ -43,18 +66,16 @@ export async function sign_up(email, password){
   }
 }
 
-export async function add_flower(name, description) {
+export async function add_flower(name, description, img) {
+  console.log(img)
   if (name !== "") {
-    return await push(ref(data, '/Fleurs/'), {
+    await push(ref(data, '/Fleurs/'), {
       name: name,
       description: description,
     })
-    .then(() => {
-      return true;
-    })
-    .catch(()=>{
-      return false;
-    })
+    await uploadBytes(ref(storage, '/Fleurs/'+ name + '.png'), img)
   }
 }
+
+
 

@@ -16,7 +16,8 @@ import Deconnexion from "../views/Deconnexion/Deconnexion";
 const DrawerNav = createDrawerNavigator();
 
 export default function ApplicationDrawer() {
-  return (
+
+    return (
     <DrawerNav.Navigator
       drawerContent={(props) => <DrawerContent {...props} />}
     >
@@ -25,7 +26,6 @@ export default function ApplicationDrawer() {
       <DrawerNav.Screen name="Deconnexion" component={Deconnexion} />
     </DrawerNav.Navigator>
   );
-}
 
 export function DrawerContent(props) {
   const { unlogUser, user } = useContext(AuthContext);
