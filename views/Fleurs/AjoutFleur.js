@@ -56,7 +56,7 @@ const AjoutFleur = () => {
                         <Image source={{ uri: selectedImage.pickerResult.uri }} style={stylesa.thumbnail} />
                         <AntDesign onPress={() => { setSelectedImage(null) }} name="closecircle" size={20} color="black" />
                     </View>
-                    <NavTouchable text="Create a flower" onPress={() => { new_flower(nom, description, pickerResult.base64) } } touchableStyle={styles.validate} />
+                    <NavTouchable text="Create a flower" onPress={() => { new_flower(nom, description, selectedImage.pickerResult.base64) } } touchableStyle={styles.validate} />
                 </> : false}
 
 
