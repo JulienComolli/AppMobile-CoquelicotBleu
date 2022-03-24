@@ -26,6 +26,7 @@ export default function ApplicationDrawer() {
       <DrawerNav.Screen name="Deconnexion" component={Deconnexion} />
     </DrawerNav.Navigator>
   );
+}
 
 export function DrawerContent(props) {
   const { unlogUser, user } = useContext(AuthContext);
