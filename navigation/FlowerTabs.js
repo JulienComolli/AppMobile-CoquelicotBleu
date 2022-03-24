@@ -4,7 +4,7 @@ import { Ionicons, MaterialIcons, AntDesign } from "@expo/vector-icons";
 
 import AddFlowerView from "../views/Fleurs/AjoutFleur";
 import FavView from "../views/Favoris/Favoris";
-import AddFavView from "../views/Favoris/AjoutFavoris";
+import Accueil from "../views/Accueil/Accueil";
 
 const Tab = createBottomTabNavigator();
 
@@ -16,7 +16,7 @@ export default function FlowerTabs() {
             tabBarInactiveBackgroundColor: '#C1F5B0',
             tabBarActiveTintColor: 'black'
         }}>
-            <Tab.Screen name="Les Fleurs" component={AddFavView}
+            <Tab.Screen name="Les Fleurs" component={Accueil}
                 options={{
                     tabBarIcon: () => (<AntDesign name="pluscircle" size={24} color="black" />)
                 }}
