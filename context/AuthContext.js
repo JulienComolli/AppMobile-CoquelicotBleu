@@ -15,14 +15,14 @@ export const AuthProvider = ({ children }) => {
             register: async (email, password) => {
                 setUser(await sign_up(email, password));
             },
-            new_flower: async (name, description) => {
-                await add_flower(name, description);
+            new_flower: async (name, description, img) => {
+                await add_flower(name, description, img);
             },
             retrieve_user: () => {
                 // Fonction pour récupérer l'utilisateur en mémoire du téléphone
             },
             unlogUser: () => {
-                setUser(null);
+                setUser(-1);
                 // Clear la mémoire du téléphone
             },
         }),
@@ -31,16 +31,17 @@ export const AuthProvider = ({ children }) => {
 
     // Chargement des données de l'utilisateur
     useEffect(async () => {
-        console.log(">>>>>>>>>", user);
         try {
-            if (!user) {
+            if(user == -1) {
+                await AsyncStorage.setItem('user', null);
+                setUser(null);
+            } else if (user == null) {
                 let userData = await AsyncStorage.getItem('user');
                 setUser(userData ? JSON.parse(userData) : null);
             } else {
                 await AsyncStorage.setItem('user', JSON.stringify(user));
             }
         } catch (e) { }
-        console.log(">", user);
     }, [user]);
 
     return (

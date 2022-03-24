@@ -5,11 +5,9 @@ import { AuthProvider } from "./context/AuthContext";
 import Router from "./navigation/Router";
 
 export default function App() {
-
   return (
     <AuthProvider>
-      <Router />
+        <Router />
     </AuthProvider>
   );
-
 }

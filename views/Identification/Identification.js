@@ -34,7 +34,7 @@ const styles = {
         // buttons on left and right of each others 
         // flexDirection: 'row',
         // buttons on top and bottom of each others
-        //flexDirection: 'columns'
+        flexDirection: 'column'
     },
     signInTouchable: {
         flex: 1,

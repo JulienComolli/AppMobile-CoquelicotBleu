@@ -8,24 +8,27 @@ import AddFavView from "../views/Favoris/AjoutFavoris";
 
 const Tab = createBottomTabNavigator();
 
-export default function SectionFleur() {
+export default function FlowerTabs() {
     return (
         <Tab.Navigator screenOptions={{
-            headerShown: false
+            headerShown: false,
+            tabBarActiveBackgroundColor: '#C9C9F5',
+            tabBarInactiveBackgroundColor: '#C1F5B0',
+            tabBarActiveTintColor: 'black'
         }}>
-            <Tab.Screen name="Ajout" component={AddFavView}
+            <Tab.Screen name="Les Fleurs" component={AddFavView}
                 options={{
                     tabBarIcon: () => (<AntDesign name="pluscircle" size={24} color="black" />)
                 }}
             />
 
-            <Tab.Screen name="Fleurs" component={AddFlowerView}
+            <Tab.Screen name="Ajout" component={AddFlowerView}
                 options={{
                     tabBarIcon: () => (<Ionicons name="flower" size={24} color="black" />)
                 }}
             />
 
-            <Tab.Screen name="Favoris" component={FavView}
+            <Tab.Screen name="Vos Favoris" component={FavView}
                 options={{
                     tabBarIcon: () => (<MaterialIcons name="favorite" size={24} color="black" />)
                 }}
