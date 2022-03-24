@@ -9,13 +9,14 @@ import Champ from "../../components/Champ/Champ";
 import { KeyboardAvoidingView } from "react-native";
 import { Platform } from "expo-modules-core";
 
-const AjoutFleur = () => {
-    //const user = getUser();
-/*     const user = {
-        email: "aaa",
-        nom: "akzekd",
-        prenom: "azkoda"
-    } */
+const Profil = () => {
+    const { get_user, user } = useContext(AuthContext);
+    
+    // const userData = {
+    //     email: user.email,
+    //     nom: ,
+    //     prenom: "azkoda"
+    // } 
     
  //   const { } = useContext(AuthContext);
 
@@ -108,4 +109,4 @@ const styles = {
     }
 };
 
-export default AjoutFleur;
+export default Profil;
