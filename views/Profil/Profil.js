@@ -10,15 +10,18 @@ import { KeyboardAvoidingView } from "react-native";
 import { Platform } from "expo-modules-core";
 
 const AjoutFleur = () => {
-    const profilImage = null // = getProfilFromBase();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const [nom, setNom] = useState();
     const [prenom, setPrenom] = useState();
-    const [image, setImage] = useState(profilImage);
+    const [image, setImage] = useState(null);
     // ajouter la fonction de modification d'un utilisateur
     const { } = useContext(AuthContext);
 
+  /* setEmail() // mettre en parametre la méthode permettant de récupérer chacune des infos
+    setNom()
+    setPrenom()
+    setImage() */
 
     let openImagePickerAsync = async () => {
         let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
