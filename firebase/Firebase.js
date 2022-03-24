@@ -1,8 +1,9 @@
 // Initialisation bdd
 import { initializeApp } from 'firebase/app';
 import { signInWithEmailAndPassword, getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { getDatabase, ref, push } from "firebase/database";
-import { getStorage, uploadBytes } from "firebase/storage"
+import { getDatabase, ref, push, get, child} from "firebase/database";
+import { getStorage } from "firebase/storage"
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyD9x7oMMZEA0tOV5ACHus04TgmYkQV1SWs",
@@ -21,26 +22,45 @@ const data = getDatabase(app);
 const auth = getAuth(app);
 const storage = getStorage(app);
 
-// async function getExistingFlower() {
-//   await get(child(ref(data), 'Fleurs/')) //Obtenir toutes les fleurs enregistrées
-//   .then((snapshot) => {
-//     var liste_ID = Object.keys(snapshot.val())
-//      liste_ID.forEach(fleurID =>  {
-//       get(child(ref(data), 'Fleurs/' + fleurID + '/name')) //Obtenir le nom de la fleur
-//       .then((snapshot2) => {
-//         console.log(snapshot2)
-//       })
-//       .catch((err) => {
-//         console.log(err)
-//       })
-//     });
+const flowersKey = getAllFlowerKey()
+console.log(flowersKey)
+getAllFlower(flowersKey)
 
-//   })
-//   .catch((err) => {
-//     console.log(err)
-//   })
-// }
+/** 
+@return {Array<string>} Liste des ID des différentes fleurs
+*/
+async function getAllFlowerKey(){
+  return await get(ref(data, 'Fleurs/'))
+  .then((snapshot) => {
+    return Object.keys(snapshot.val())
+  })
+  .catch((err) => {
+    console.log(err);
+    return null;
+  })
+}
 
+/**
+ * @param { Array<String> } flowersKey Liste des ID des différentes fleurs
+ * @returns { Array<String> } Détails de toutes les fleurs.  
+ */
+async function getAllFlower(flowersKey){
+  console.log(flowersKey)
+  let listFlower = []
+  flowersKey.forEach(key => {
+     get(ref(data, 'Fleurs/' + key))
+    .then((snapshot) => {
+      listFlower.push({
+        "name" : snapshot, 
+        "description" : snapshot, 
+        // "img": snapshot
+      })
+    })
+    .catch(err);
+  });
+  // console.log(listFlower.len)
+  return listFlower;
+}
 
 export async function sign_in (email, password) {
     if (email !== "" && password !== "") {
