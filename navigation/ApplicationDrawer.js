@@ -10,7 +10,7 @@ import { MaterialCommunityIcons, AntDesign } from "@expo/vector-icons";
 import { AuthContext } from "../context/AuthContext";
 
 import SectionFleur from "./FlowerTabs";
-import APropos from "../views/APropos/APropos";
+import Profil from "../views/Profil/Profil";
 import Deconnexion from "../views/Deconnexion/Deconnexion";
 
 const DrawerNav = createDrawerNavigator();
@@ -22,7 +22,7 @@ export default function ApplicationDrawer() {
       drawerContent={(props) => <DrawerContent {...props} />}
     >
       <DrawerNav.Screen name="Mes Fleurs" component={SectionFleur} />
-      <DrawerNav.Screen name="A Propos" component={APropos} />
+      <DrawerNav.Screen name="Mon Profil" component={Profil} />
       <DrawerNav.Screen name="Deconnexion" component={Deconnexion} />
     </DrawerNav.Navigator>
   );
