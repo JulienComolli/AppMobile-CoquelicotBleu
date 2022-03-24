@@ -46,7 +46,6 @@ const AjoutFleur = () => {
             <Champ title="Description" placeholder={description_rose} setText={setDescription} multiligne={true}
                 champStyle={styles.description.champ} inputStyle={styles.description.input}
                 defaultText={description} />
-            {/* Affiche le contenu des deux champs dans la console. */}
             <NavTouchable text="Ajouter une photo" onPress={openImagePickerAsync} touchableStyle={styles.addTouchable} />
 
 
