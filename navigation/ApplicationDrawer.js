@@ -69,7 +69,7 @@ export function DrawerContent(props) {
               )}
               label="Profil"
               onPress={() => {
-                props.navigation.navigate("Mes Fleurs");
+                props.navigation.navigate("Mon Profil");
               }}
             />
           </Drawer.Section>
