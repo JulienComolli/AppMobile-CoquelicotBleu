@@ -1,8 +1,8 @@
 // Initialisation bdd
+import { async } from '@firebase/util';
 import { initializeApp } from 'firebase/app';
-import { signInWithEmailAndPassword, getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { getDatabase, ref, push, get, child} from "firebase/database";
-import { getStorage } from "firebase/storage"
+import { signInWithEmailAndPassword, getAuth, createUserWithEmailAndPassword, updateEmail, updatePassword } from "firebase/auth";
+import { getDatabase, ref, push, get, set, remove} from "firebase/database";
 
 
 const firebaseConfig = {
@@ -17,63 +17,33 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-
 const data = getDatabase(app);
 const auth = getAuth(app);
-const storage = getStorage(app);
 
-const flowersKey = getAllFlowerKey()
-console.log(flowersKey)
-getAllFlower(flowersKey)
-
-/** 
-@return {Array<string>} Liste des ID des différentes fleurs
-*/
-async function getAllFlowerKey(){
-  return await get(ref(data, 'Fleurs/'))
-  .then((snapshot) => {
-    return Object.keys(snapshot.val())
-  })
-  .catch((err) => {
-    console.log(err);
-    return null;
-  })
+/**
+ * Connexion à l'application avec un email et un mot de passe
+ * @param {string} email 
+ * @param {string} password 
+ * @returns Retourne la session de l'utilisateur
+ */
+export async function sign_in (email, password) {
+  if (email !== "" && password !== "") {
+    return await signInWithEmailAndPassword(auth, email, password)
+    .then((res) => {
+      return res.user;
+    })
+    .catch(() => {
+      return null;
+    })
+  }
 }
 
 /**
- * @param { Array<String> } flowersKey Liste des ID des différentes fleurs
- * @returns { Array<String> } Détails de toutes les fleurs.  
+ * S'inscrire à l'aide d'un mot de passe et d'un email
+ * @param {string} email 
+ * @param {string} password 
+ * @returns Retourne la session de l'utilisateur
  */
-async function getAllFlower(flowersKey){
-  console.log(flowersKey)
-  let listFlower = []
-  flowersKey.forEach(key => {
-     get(ref(data, 'Fleurs/' + key))
-    .then((snapshot) => {
-      listFlower.push({
-        "name" : snapshot, 
-        "description" : snapshot, 
-        // "img": snapshot
-      })
-    })
-    .catch(err);
-  });
-  // console.log(listFlower.len)
-  return listFlower;
-}
-
-export async function sign_in (email, password) {
-    if (email !== "" && password !== "") {
-      return await signInWithEmailAndPassword(auth, email, password)
-      .then((res) => {
-        return res.user;
-      })
-      .catch(() => {
-        return null;
-      })
-    }
-  }
-
 export async function sign_up(email, password){
   if (email !== "" && password !== "") {
     return await createUserWithEmailAndPassword(auth, email, password)
@@ -86,6 +56,12 @@ export async function sign_up(email, password){
   }
 }
 
+/**
+ * Ajouter une fleur dans la BDD
+ * @param {string} name Nom de la fleur
+ * @param {string} description Description de la fleur
+ * @param {string} img Img au format x64
+ */
 export async function add_flower(name, description, img) {
   if (name !== "") {
     await push(ref(data, '/Fleurs/'), {
@@ -94,6 +70,106 @@ export async function add_flower(name, description, img) {
       base64: img
     })
   }
+}
+
+/**
+ * @returns { Array<String> } Détails de toutes les fleurs.  
+ */
+export async function getAllFlower(){
+  keys = await get(ref(data, 'Fleurs/'))
+  .then((snapshot) => {
+    return Object.keys(snapshot.val())
+  })
+  .catch((err) => {
+    console.log(err);
+    return null;
+  })
+
+  if (keys == null)
+    return null
+  
+  let listFlower = []
+
+  for (let i = 0; i < keys.length; i++){
+    await get(ref(data, 'Fleurs/' + keys[i]))
+    .then((snapshot) => {
+      listFlower.push({
+        "key" : keys[i],
+        "description" : snapshot.val().description, 
+        "name" : snapshot.val().name, 
+        "img": snapshot.val().img
+      })
+    })
+    .catch((err) => {
+      console.log(err)
+    });
+  }
+
+  return listFlower;
+}
+
+/**
+ * Met à jour l'ensemble des propriétés de l'utilisateurs
+ * @param {string} user Variable d'identification de l'utilisateur
+ * @param {string} email Nouvel email 
+ * @param {string} password Nouveau mot de passe
+ * @param {string} nom Nouveau nom
+ * @param {string} prenom Nouveau prénom
+ * @param {string} img Nouvel image de profil
+ */
+export async function updateProfil(user, email, password, nom, prenom, img){
+  await set(ref(data, "Utilisateurs/" + user.uid), {
+    nom : nom,
+    prenom : prenom,
+    img : img
+  })
+  .catch((err) => {
+    console.log(err)
+    return false;
+  })
+
+  if (user.email != email){
+    await updateEmail(user, email)
+    .catch((err) => {
+      console.log(err)
+    })
+  }
+
+  if (password != "" || password != undefined || password != null) {
+    await updatePassword(user, password)
+    .catch((err) => {
+      console.log(err)
+      return false;
+    })
+  }
+}
+
+/**
+ * Supprime la fleur indiquée
+ * @param {String} key ID de la fleur
+ */
+export async function deleteFlower(key){
+  return await remove(ref("Fleurs/" + key))
+  .then(() => {
+    return true;
+  })
+  .catch((err) => {
+    console.log(err)
+    return false;
+  })
+}
+
+/**
+ * Récupérer les propriétés de l'utilisateur
+ * @param {String} key ID de l'utilisateur connecté
+ * @returns 
+ */
+export async function getUser(key) {
+  return await get(ref(data, key))
+  .catch((err) => {
+    console.log(err)
+    return null;
+  })
 }
 
 
