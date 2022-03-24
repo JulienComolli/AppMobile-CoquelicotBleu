@@ -5,6 +5,8 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
+    const [userData, setUserData] = useState(null);
+    const [fleurs, setFleurs] = useState(null);
 
     const authSystem = useMemo(
         () => ({
@@ -24,11 +26,11 @@ export const AuthProvider = ({ children }) => {
             delete_flower: async (key) => {
                 await deleteFlower(key);
             },
-            update_profil: async (user, email, password, nom, prenom, img) => {
-                await updateProfil(user, email, password, nom, prenom, img);
+            update_profil: async (email, password, nom, prenom, img) => {
+                await updateProfil(user.uid, email, password, nom, prenom, img);
             },
-            get_user: async(key) => {
-                await getUser(key)
+            get_user: async() => {
+                await getUser(user.uid)
             },
             retrieve_user: () => {
                 // Fonction pour récupérer l'utilisateur en mémoire du téléphone
@@ -41,17 +43,22 @@ export const AuthProvider = ({ children }) => {
         []
     );
 
-    // Chargement des données de l'utilisateur
+
+    // Chargement des auth info de l'utilisateur
     useEffect(async () => {
         try {
             if(user == -1) {
                 await AsyncStorage.setItem('user', null);
                 setUser(null);
+                setUserData(null);
             } else if (user == null) {
-                let userData = await AsyncStorage.getItem('user');
-                setUser(userData ? JSON.parse(userData) : null);
+                let storedUser = await AsyncStorage.getItem('user');
+                setUser(storedUser ? JSON.parse(storedUser) : null);
             } else {
                 await AsyncStorage.setItem('user', JSON.stringify(user));
+                let usrData = await getUser(user.uid);
+                console.log(">> ", usrData);
+                setUserData(usrData);
             }
         } catch (e) { }
     }, [user]);

@@ -165,9 +165,11 @@ export async function deleteFlower(key){
  * @returns 
  */
 export async function getUser(key) {
-  return await get(ref(data, key))
+  return await get(ref(data, "Utilisateurs/" + key))
+  .then((user) => {
+    return user.val(); 
+  })
   .catch((err) => {
-    console.log(err)
     return null;
   })
 }
