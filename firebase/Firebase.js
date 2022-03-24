@@ -67,13 +67,12 @@ export async function sign_up(email, password){
 }
 
 export async function add_flower(name, description, img) {
-  console.log(img)
   if (name !== "") {
     await push(ref(data, '/Fleurs/'), {
       name: name,
       description: description,
+      base64: img
     })
-    await uploadBytes(ref(storage, '/Fleurs/'+ name + '.png'), img)
   }
 }
 

@@ -6,6 +6,8 @@ import * as ImagePicker from 'expo-image-picker';
 import { AuthContext } from "../../context/AuthContext";
 import NavTouchable from "../../components/Boutons/NavTouchable";
 import Champ from "../../components/Champ/Champ";
+import { KeyboardAvoidingView } from "react-native";
+import { Platform } from "expo-modules-core";
 
 const description_rose = "La rose est la fleur du rosier, elle se caractérise avant tout par la multiplication de ses pétales imbriqués, qui lui donne sa forme caracteristique.";
 
@@ -13,8 +15,8 @@ const AjoutFleur = () => {
     const [nom, setNom] = useState();
     const [description, setDescription] = useState();
     const { new_flower } = useContext(AuthContext);
-
     const [selectedImage, setSelectedImage] = useState(null);
+
     let openImagePickerAsync = async () => {
         let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
@@ -23,21 +25,28 @@ const AjoutFleur = () => {
             return;
         }
 
-        let pickerResult = await ImagePicker.launchImageLibraryAsync();
+
+        let pickerResult = await ImagePicker.launchImageLibraryAsync({base64:true});
 
         if (pickerResult.cancelled === true) {
             alert("Choisissez !");
             return;
         }
+ 
+        
         setSelectedImage({ pickerResult: pickerResult });
     };
 
     return (
-
-        <ScrollView contentContainerStyle={styles.screen}>
+        <KeyboardAvoidingView 
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            style={styles.screen}
+        >
             <Champ title="Nom de la fleur" placeholder="Tulipe" setText={setNom} />
             <Champ title="Description" placeholder={description_rose} setText={setDescription} multiligne={true}
-                champStyle={styles.description.champ} inputStyle={styles.description.input} />
+                champStyle={styles.description.champ} inputStyle={styles.description.input}
+                defaultText={description} />
+            {/* Affiche le contenu des deux champs dans la console. */}
             <NavTouchable text="Ajouter une photo" onPress={openImagePickerAsync} touchableStyle={styles.addTouchable} />
 
 
@@ -47,11 +56,11 @@ const AjoutFleur = () => {
                         <Image source={{ uri: selectedImage.pickerResult.uri }} style={stylesa.thumbnail} />
                         <AntDesign onPress={() => { setSelectedImage(null) }} name="closecircle" size={20} color="black" />
                     </View>
-                    <NavTouchable text="Create a flower" onPress={() => { new_flower(nom, description)} } touchableStyle={styles.validate} />
+                    <NavTouchable text="Create a flower" onPress={() => { new_flower(nom, description, pickerResult.base64) } } touchableStyle={styles.validate} />
                 </> : false}
 
 
-        </ScrollView>
+        </KeyboardAvoidingView>
 
     );
 
