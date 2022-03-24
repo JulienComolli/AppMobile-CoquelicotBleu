@@ -15,7 +15,6 @@ export default function ApplicationDrawer() {
     return (
         <Drawer.Navigator>
             <Drawer.Screen name="Accueil" component={Home} />
-            <Drawer.Screen name="Accueil" component={Home} />
             <Drawer.Screen name="Mes Fleurs" component={SectionFleur} />
             <Drawer.Screen name="A Propos" component={APropos} />
             <Drawer.Screen name="Deconnexion" component={Deconnexion} />

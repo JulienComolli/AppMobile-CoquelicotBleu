@@ -23,14 +23,12 @@ const AjoutFleur = () => {
             return;
         }
 
-
         let pickerResult = await ImagePicker.launchImageLibraryAsync();
 
         if (pickerResult.cancelled === true) {
             alert("Choisissez !");
             return;
         }
-        console.log(pickerResult.uri)
         setSelectedImage({ pickerResult: pickerResult });
     };
 
@@ -40,7 +38,6 @@ const AjoutFleur = () => {
             <Champ title="Nom de la fleur" placeholder="Tulipe" setText={setNom} />
             <Champ title="Description" placeholder={description_rose} setText={setDescription} multiligne={true}
                 champStyle={styles.description.champ} inputStyle={styles.description.input} />
-            {/* Affiche le contenu des deux champs dans la console. */}
             <NavTouchable text="Ajouter une photo" onPress={openImagePickerAsync} touchableStyle={styles.addTouchable} />
 
 
@@ -50,7 +47,7 @@ const AjoutFleur = () => {
                         <Image source={{ uri: selectedImage.pickerResult.uri }} style={stylesa.thumbnail} />
                         <AntDesign onPress={() => { setSelectedImage(null) }} name="closecircle" size={20} color="black" />
                     </View>
-                    <NavTouchable text="Create a flower" onPress={() => { new_flower(nom, description) } } touchableStyle={styles.validate} />
+                    <NavTouchable text="Create a flower" onPress={() => { new_flower(nom, description)} } touchableStyle={styles.validate} />
                 </> : false}
 
 

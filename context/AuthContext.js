@@ -31,7 +31,6 @@ export const AuthProvider = ({ children }) => {
 
     // Chargement des données de l'utilisateur
     useEffect(async () => {
-        console.log(">>>>>>>>>", user);
         try {
             if (!user) {
                 let userData = await AsyncStorage.getItem('user');
@@ -40,7 +39,6 @@ export const AuthProvider = ({ children }) => {
                 await AsyncStorage.setItem('user', JSON.stringify(user));
             }
         } catch (e) { }
-        console.log(">", user);
     }, [user]);
 
     return (
