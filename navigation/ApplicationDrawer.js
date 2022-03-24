@@ -41,8 +41,8 @@ export function DrawerContent(props) {
                 size={50}
               />
               <View style={{ marginLeft: 15, flexDirection: "column" }}>
-                <Title style={styles.title}>{ user.email.split('@')[0].toUpperCase() }</Title>
-                <Caption style={styles.caption}>{ user.email }</Caption>
+                <Title style={styles.title}>{ user?.email?.split('@')[0].toUpperCase() }</Title>
+                <Caption style={styles.caption}>{ user?.email }</Caption>
               </View>
             </View>
           </View>
