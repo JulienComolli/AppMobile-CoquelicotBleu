@@ -1,5 +1,5 @@
 import { React, useState, useContext } from "react";
-import { View, Image, StyleSheet, ScrollView } from "react-native";
+import { View, Image, ScrollView } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import * as ImagePicker from 'expo-image-picker';
 
@@ -10,11 +10,12 @@ import { KeyboardAvoidingView } from "react-native";
 import { Platform } from "expo-modules-core";
 
 const AjoutFleur = () => {
+    const profilImage = null // = getProfilFromBase();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const [nom, setNom] = useState();
     const [prenom, setPrenom] = useState();
-    const [image, setImage] = useState(null);
+    const [image, setImage] = useState(profilImage);
     // ajouter la fonction de modification d'un utilisateur
     const { } = useContext(AuthContext);
 
@@ -44,16 +45,16 @@ const AjoutFleur = () => {
             style={styles.screen}
         >
             <ScrollView contentContainerStyle={styles.screen}>
-                <Champ title="Email" placeholder="coquelicot@email.com" setText={setEmail} />
+                <Champ title="Email" placeholder="coquelicot@email.com" setText={setEmail} defaultValue={email}/>
                 <Champ title="Password" placeholder="*******" setText={setPassword} />
-                <Champ title="Nom" placeholder="Benzema" setText={setNom} />
-                <Champ title="Prenom" placeholder="Karim" setText={setPrenom} />
+                <Champ title="Nom" placeholder="Benzema" setText={setNom} defaultValue={nom}/>
+                <Champ title="Prenom" placeholder="Karim" setText={setPrenom} defaultValue={prenom}/>
                 <NavTouchable text="Ajouter une photo" onPress={openImagePickerAsync} touchableStyle={styles.addTouchable} />
 
                 {image ?
                     <>
                         <View style={{ flexDirection: "row" }}>
-                            <Image source={{ uri: image.pickerResult.uri }} style={stylesa.thumbnail} />
+                            <Image source={{ uri: image.pickerResult.uri }} style={styles.picture} />
                             <AntDesign onPress={() => { setImage(null) }} name="closecircle" size={20} color="black" />
                         </View>
                     </> : false}
@@ -85,14 +86,6 @@ const styles = {
         margin: 15,
         borderWidth: 2,
     },
-    description: {
-        champ: {
-            height: 130
-        },
-        input: {
-            height: 120
-        }
-    },
     register: {
         backgroundColor: '#AFFA64',
         margin: 15,
@@ -102,15 +95,12 @@ const styles = {
         backgroundColor: '#FD5E58',
         margin: 15,
         borderWidth: 2,
-    }
-};
-
-const stylesa = StyleSheet.create({
-    /* Other styles hidden to keep the example brief... */
-    thumbnail: {
+    },
+    picture: {
         width: 200,
         height: 200,
         resizeMode: 'contain'
     }
-});
+};
+
 export default AjoutFleur;
