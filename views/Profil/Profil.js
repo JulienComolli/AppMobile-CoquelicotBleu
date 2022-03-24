@@ -10,18 +10,20 @@ import { KeyboardAvoidingView } from "react-native";
 import { Platform } from "expo-modules-core";
 
 const AjoutFleur = () => {
+    //const user = getUser();
+/*     const user = {
+        email: "aaa",
+        nom: "akzekd",
+        prenom: "azkoda"
+    } */
+    
+ //   const { } = useContext(AuthContext);
+
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const [nom, setNom] = useState();
     const [prenom, setPrenom] = useState();
-    const [image, setImage] = useState(null);
-    // ajouter la fonction de modification d'un utilisateur
-    const { } = useContext(AuthContext);
-
-  /* setEmail() // mettre en parametre la méthode permettant de récupérer chacune des infos
-    setNom()
-    setPrenom()
-    setImage() */
+    const [image, setImage] = useState(user.image);
 
     let openImagePickerAsync = async () => {
         let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -48,10 +50,10 @@ const AjoutFleur = () => {
             style={styles.screen}
         >
             <ScrollView contentContainerStyle={styles.screen}>
-                <Champ title="Email" placeholder="coquelicot@email.com" setText={setEmail} defaultValue={email}/>
+                <Champ title="Email" placeholder="coquelicot@email.com" setText={setEmail} defaultValue={user.email}/>
                 <Champ title="Password" placeholder="*******" setText={setPassword} />
-                <Champ title="Nom" placeholder="Benzema" setText={setNom} defaultValue={nom}/>
-                <Champ title="Prenom" placeholder="Karim" setText={setPrenom} defaultValue={prenom}/>
+                <Champ title="Nom" placeholder="Benzema" setText={setNom} defaultValue={user.nom}/>
+                <Champ title="Prenom" placeholder="Karim" setText={setPrenom} defaultValue={user.prenom}/>
                 <NavTouchable text="Ajouter une photo" onPress={openImagePickerAsync} touchableStyle={styles.addTouchable} />
 
                 {image ?
