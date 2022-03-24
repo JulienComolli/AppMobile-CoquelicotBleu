@@ -30,8 +30,6 @@ export default function ApplicationDrawer() {
 
 export function DrawerContent(props) {
   const { unlogUser, user } = useContext(AuthContext);
-
-    console.log(user);
   return (
     <View style={{ flex: 1, backgroundColor: "#C9C9F5" }}>
       <DrawerContentScrollView {...props}>

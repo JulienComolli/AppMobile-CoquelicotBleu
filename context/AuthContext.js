@@ -1,5 +1,5 @@
 import React, { createContext, useState, useMemo, useEffect } from "react";
-import { sign_in, sign_up, add_flower } from "../firebase/Firebase";
+import { sign_in, sign_up, add_flower, getAllFlower, updateProfil, getUser, deleteFlower } from "../firebase/Firebase";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 export const AuthContext = createContext();
 
@@ -17,6 +17,18 @@ export const AuthProvider = ({ children }) => {
             },
             new_flower: async (name, description, img) => {
                 await add_flower(name, description, img);
+            },
+            get_flower: async () => {
+                await getAllFlower();
+            },
+            delete_flower: async (key) => {
+                await deleteFlower(key);
+            },
+            update_profil: async (user, email, password, nom, prenom, img) => {
+                await updateProfil(user, email, password, nom, prenom, img);
+            },
+            get_user: async(key) => {
+                await getUser(key)
             },
             retrieve_user: () => {
                 // Fonction pour récupérer l'utilisateur en mémoire du téléphone
