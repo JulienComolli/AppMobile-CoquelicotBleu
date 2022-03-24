@@ -22,8 +22,8 @@ const auth = getAuth(app);
 export async function sign_in (email, password) {
     if (email !== "" && password !== "") {
       return await signInWithEmailAndPassword(auth, email, password)
-      .then((usr) => {
-        return usr;
+      .then((res) => {
+        return res.user;
       })
       .catch(() => {
         return null;
@@ -34,8 +34,8 @@ export async function sign_in (email, password) {
 export async function sign_up(email, password){
   if (email !== "" && password !== "") {
     return await createUserWithEmailAndPassword(auth, email, password)
-    .then((usr) => {
-      return usr;
+    .then((res) => {
+      return res.user;
     })
     .catch(() => {
       return null;
