@@ -1,21 +1,19 @@
 // Initialisation bdd
-import { async } from '@firebase/util';
 import { initializeApp } from 'firebase/app';
 import { signInWithEmailAndPassword, getAuth, createUserWithEmailAndPassword, updateEmail, updatePassword } from "firebase/auth";
 import { getDatabase, ref, push, get, set, remove } from "firebase/database";
 
-
 const firebaseConfig = {
-  apiKey: "AIzaSyD9x7oMMZEA0tOV5ACHus04TgmYkQV1SWs",
-  authDomain: "coquelicot-bleu.firebaseapp.com",
-  databaseURL: "https://coquelicot-bleu-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "coquelicot-bleu",
-  storageBucket: "coquelicot-bleu.appspot.com",
-  messagingSenderId: "459346027100",
-  appId: "1:459346027100:web:f4880dcd4d66302d58fc99",
-  measurementId: "G-D3NLEFB5V9"
+  apiKey: "AIzaSyDenDHAUfyMtQAz8YjarqiZt-rKgl4vr7Q",
+  authDomain: "coquelicot-bleu-2.firebaseapp.com",
+  databaseURL: "https://coquelicot-bleu-2-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "coquelicot-bleu-2",
+  storageBucket: "coquelicot-bleu-2.appspot.com",
+  messagingSenderId: "504930726835",
+  appId: "1:504930726835:web:ab0d8b9c176c469a4a51c6"
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const data = getDatabase(app);
 const auth = getAuth(app);
@@ -71,7 +69,6 @@ export async function add_flower(name, description, img) {
     })
   }
 }
-
 
 export async function getAllFlowers() {
   let keys = await get(ref(data, 'Fleurs/'))
@@ -169,12 +166,13 @@ export async function getUser(key) {
       return null;
     })
 }
+
 /**
- * Supprime la fleur indiquée
- * @param {String} key ID de la fleur
+ * Supprime l'utilisateur indiquée
+ * @param {String} userUID UID de l'utilisateur
  */
-export async function deleteUser(key) {
-  return await remove(ref(data, "Utilisateurs/" + key))
+export async function deleteUser(userUID) {
+  return await remove(ref(data, "Utilisateurs/" + userUID))
     .then(() => {
       auth.currentUser.delete();
       return true;
@@ -183,4 +181,66 @@ export async function deleteUser(key) {
       console.log(err)
       return false;
     })
+}
+
+/**
+ * Ajoute pour l'utilisateur la fleur indiquée en favori 
+ * @param {String} key ID de la fleur
+ * @param {String} userUID UID de l'utilisateur
+ * @returns 
+ */
+export async function addFav (key, userUID) {
+  return await push(ref(data, "Utilisateurs/" + user.uid + "/Favoris"), key)
+  .then(() => {
+    return true;
+  })
+  .catch((err) => {
+    console.log(err)
+    return false;
+  })
+}
+
+/**
+ * Obtenir la liste des favoris pour un utilisateur
+ * @param {String} userUID UID de l'utilisateur
+ */
+export async function getFav (userUID) {
+  await get(ref(data, "Utilisateurs/" + user.uid + "/Favoris"))
+  .then((snapshot) => {
+    keys = Object.keys(snapshot.val())
+    fav = []
+    for(let i = 0; i < keys.length; i++){
+      get(ref(data, "Favori/" + keys[i]))
+      .then((fleur) => {
+        fav.push({
+          "key": keys[i],
+          "description": fleur.val().description,
+          "name": fleur.val().name,
+          "img": fleur.val().base64
+        })
+      })
+    }
+    return fav;
+  })
+  .catch((err) => {
+    console.log(err)
+    return null;
+  })
+}
+
+/**
+ * Mise à jour d'une fleur
+ * @param {String} key ID de la fleur 
+ * @param {String} name nouveau
+ * @param {String} description nouvelle description
+ * @param {String} img nouvelle img
+ */
+export async function update_flower (key, name, description, img) {
+  if (name !== "") {
+    await set(ref(data, '/Fleurs/' + key), {
+      name: name,
+      description: description,
+      base64: img
+    })
+  }
 }

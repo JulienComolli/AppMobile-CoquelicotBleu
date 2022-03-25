@@ -1,5 +1,5 @@
 import React, { createContext, useState, useMemo, useEffect } from "react";
-import { sign_in, sign_up, add_flower, getAllFlowers, updateProfil, getUser, deleteFlower, deleteUser } from "../firebase/Firebase";
+import { sign_in, sign_up, add_flower, getAllFlowers, updateProfil, getUser, deleteFlower, deleteUser, update_flower, addFav, getFav } from "../firebase/Firebase";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 export const AuthContext = createContext();
 
@@ -25,6 +25,15 @@ export const AuthProvider = ({ children }) => {
             },
             delete_flower: async (key) => {
                 await deleteFlower(key);
+            },
+            update_flower: async(key, name, description, img) => {
+                await update_flower(key, name, description, img);
+            },
+            add_fav: async (key, userUID) =>{
+                addFav(key, userUID);
+            },
+            get_fav: async (userUID) =>{
+                getFav(userUID);
             },
             update_profil: async (userUid, email, password, nom, prenom, img) => {
                 await updateProfil(userUid, email, password, nom, prenom, img);
