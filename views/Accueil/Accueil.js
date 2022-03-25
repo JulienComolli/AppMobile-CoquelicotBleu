@@ -21,7 +21,7 @@ const Home = () => {
             <FlatList
                 style={styles.container}
                 data={flowers}
-                renderItem={({ item }) => (<Fleur nom={item.name} description={item.description} uri={"data:image/png;base64, "+item.img}/>)}
+                renderItem={({ item }) => (<Fleur nom={item.name} description={item.description} uri={"data:image/png;base64, "+item.img} flower_key={item.key}/>)}
                 keyExtractor={item => item.key}
             />
         </View>

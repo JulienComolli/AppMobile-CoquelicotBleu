@@ -1,9 +1,13 @@
 import React from "react"
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext.js";
+
 import { View, Image, TextInput } from "react-native";
 import { FontAwesome, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 
-const Fleur = ({ uri, nom, description }) => {
+const Fleur = ({ uri, nom, description, flower_key }) => {
+    const { delete_flower } = useContext(AuthContext);
     return (
         <>
             <View style={styles.component}>{/* Composant */}
@@ -16,7 +20,7 @@ const Fleur = ({ uri, nom, description }) => {
                     <View style={styles.containerIcon}>{/* Icones */}
                         <MaterialCommunityIcons style={styles.fav} name="heart-circle" size={17} color="black" />
                         <FontAwesome style={styles.edit} name="pencil" size={17} color="black" />
-                        <MaterialIcons style={styles.delete} name="delete" size={17} color="black" />
+                        <MaterialIcons style={styles.delete} name="delete" size={17} color="black" onPress={() => {delete_flower(flower_key)} }/>
                     </View>
                 </View>
             </View>
