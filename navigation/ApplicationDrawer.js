@@ -1,5 +1,5 @@
-import { React, useState, useContext } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { React, useContext } from "react";
+import { View, StyleSheet } from "react-native";
 import { Avatar, Title, Caption, Drawer } from "react-native-paper";
 
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";

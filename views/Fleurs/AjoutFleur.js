@@ -1,5 +1,5 @@
 import { React, useState, useContext } from "react";
-import { View, Image, StyleSheet, ScrollView } from "react-native";
+import { View, Image, StyleSheet } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import * as ImagePicker from 'expo-image-picker';
 
@@ -26,26 +26,26 @@ const AjoutFleur = ({ navigation }) => {
         }
 
 
-        let pickerResult = await ImagePicker.launchImageLibraryAsync({base64:true});
+        let pickerResult = await ImagePicker.launchImageLibraryAsync({ base64: true });
 
         if (pickerResult.cancelled === true) {
             alert("Choisissez !");
             return;
         }
- 
-        
+
+
         setSelectedImage({ pickerResult: pickerResult });
     };
 
     return (
-        <KeyboardAvoidingView 
+        <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
             style={styles.screen}
         >
-            <Champ title="Nom de la fleur" placeholder="Tulipe" setText={setNom} />
+            <Champ title="Nom de la fleur" placeholder="Tulipe" setText={setNom} targetState={nom || ""} />
             <Champ title="Description" placeholder={description_rose} setText={setDescription} multiligne={true}
                 champStyle={styles.description.champ} inputStyle={styles.description.input}
-                defaultText={description} />
+                targetState={description || ""} />
             <NavTouchable text="Ajouter une photo" onPress={openImagePickerAsync} touchableStyle={styles.addTouchable} />
 
 
@@ -55,13 +55,13 @@ const AjoutFleur = ({ navigation }) => {
                         <Image source={{ uri: selectedImage.pickerResult.uri }} style={stylesa.thumbnail} />
                         <AntDesign onPress={() => { setSelectedImage(null) }} name="closecircle" size={20} color="black" />
                     </View>
-                    <NavTouchable text="Create a flower" onPress={() => { 
+                    <NavTouchable text="Create a flower" onPress={() => {
                         new_flower(nom, description, selectedImage.pickerResult.base64);
-                        setDescription(null);
-                        setSelectedImage(null);
-                        setNom(null);
+                        setDescription("");
+                        setSelectedImage("");
+                        setNom("");
                         navigation.navigate("Les Fleurs");
-                        } } touchableStyle={styles.validate} />
+                    }} touchableStyle={styles.validate} />
                 </> : false}
 
 
@@ -84,7 +84,7 @@ const styles = {
         width: 300,
         height: 54,
         margin: 15,
-        borderWidth: 2,
+        borderWidth: 1,
     },
     description: {
         champ: {
@@ -99,7 +99,7 @@ const styles = {
         width: 300,
         height: 54,
         margin: 15,
-        borderWidth: 2,
+        borderWidth: 1,
     }
 };
 

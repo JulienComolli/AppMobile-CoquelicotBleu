@@ -1,7 +1,7 @@
 // Route qui va check si l'user est log ou pas
 import AppNavigationDrawer from './ApplicationDrawer';
 import LoginNavigation from './AuthStack';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { AuthContext } from '../context/AuthContext';

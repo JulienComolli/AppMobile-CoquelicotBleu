@@ -1,6 +1,5 @@
 import { React, useState, useContext } from "react";
-import { View, Image, ScrollView } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
+import { ScrollView } from "react-native";
 import * as ImagePicker from 'expo-image-picker';
 
 import { AuthContext } from "../../context/AuthContext";

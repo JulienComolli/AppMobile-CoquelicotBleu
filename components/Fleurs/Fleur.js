@@ -6,7 +6,7 @@ import { View, Image, TextInput } from "react-native";
 import { FontAwesome, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 
-const Fleur = ({ uri, nom, description, flower_key }) => {
+const Fleur = ({ uri, nom, description, flowerKey, delFlower }) => {
     const { delete_flower } = useContext(AuthContext);
     return (
         <>
@@ -20,7 +20,7 @@ const Fleur = ({ uri, nom, description, flower_key }) => {
                     <View style={styles.containerIcon}>{/* Icones */}
                         <MaterialCommunityIcons style={styles.fav} name="heart-circle" size={17} color="black" />
                         <FontAwesome style={styles.edit} name="pencil" size={17} color="black" />
-                        <MaterialIcons style={styles.delete} name="delete" size={17} color="black" onPress={() => {delete_flower(flower_key)} }/>
+                        <MaterialIcons style={styles.delete} name="delete" size={17} color="black" onPress={() => {delFlower(flowerKey)} }/>
                     </View>
                 </View>
             </View>

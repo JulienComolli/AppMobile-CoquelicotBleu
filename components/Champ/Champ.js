@@ -2,7 +2,7 @@ import React from "react"
 import { StyleSheet, Text, View, TextInput } from "react-native";
 
 
-const Champ = ({title, placeholder, password, setText, multiligne, inputStyle, champStyle, inputText, defaultValue}) => {
+const Champ = ({title, placeholder, password, setText, multiligne, inputStyle, champStyle, inputText, defaultValue, targetState }) => {
 
     const styles = StyleSheet.create({
         champ: { 
@@ -23,7 +23,7 @@ const Champ = ({title, placeholder, password, setText, multiligne, inputStyle, c
     return (
         <View style={styles.champ}>
             <Text style={styles.inputText}>{title}</Text>
-            <TextInput defaultValue={defaultValue} multiline={multiligne} secureTextEntry={password} placeholder={placeholder} style={styles.input} onChangeText={newText => {setText(newText)}}/>
+            <TextInput value={ targetState } defaultValue={defaultValue} multiline={multiligne} secureTextEntry={password} placeholder={placeholder} style={styles.input} onChangeText={newText => {setText(newText)}}/>
         </View>
     );
 }
@@ -41,7 +41,7 @@ const defaultStyles = {
         backgroundColor: "white",
 
         fontSize: 17,
-        fontWeight: '900',
+//        fontWeight: '900',
         height: 52,
         borderWidth: 2,
         paddingLeft: 20,

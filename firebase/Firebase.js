@@ -74,7 +74,6 @@ export async function add_flower(name, description, img) {
 
 
 export async function getAllFlowers() {
-  console.log("aaa");
   let keys = await get(ref(data, 'Fleurs/'))
     .then((snapshot) => {
       return Object.keys(snapshot.val())
