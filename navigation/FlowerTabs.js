@@ -2,9 +2,9 @@ import * as React from "react";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons, MaterialIcons, AntDesign } from "@expo/vector-icons";
 
-import AddFlowerView from "../views/Fleurs/AjoutFleur";
-import FavView from "../views/Favoris/Favoris";
-import Accueil from "../views/Accueil/Accueil";
+import AddFlowerView from "../views/AjoutFleurs/AjoutFleur";
+import FavView from "../views/AffichageFleurs/Favoris";
+import Accueil from "../views/AffichageFleurs/Accueil";
 
 const Tab = createBottomTabNavigator();
 

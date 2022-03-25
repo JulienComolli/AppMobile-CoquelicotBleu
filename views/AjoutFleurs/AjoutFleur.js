@@ -10,7 +10,7 @@ import { Platform } from "expo-modules-core";
 
 const description_rose = "La rose est la fleur du rosier, elle se caractérise avant tout par la multiplication de ses pétales imbriqués, qui lui donne sa forme caracteristique.";
 
-const AjoutFleur = ({ navigation }) => {
+const AddFlowerView = ({ navigation }) => {
     const [nom, setNom] = useState();
     const [description, setDescription] = useState();
     const { new_flower } = useContext(AuthContext);
@@ -110,4 +110,4 @@ const stylesa = StyleSheet.create({
         resizeMode: 'contain'
     }
 });
-export default AjoutFleur;
+export default AddFlowerView;

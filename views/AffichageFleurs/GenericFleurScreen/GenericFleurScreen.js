@@ -1,11 +1,11 @@
 import React, { useContext, useState, useEffect } from "react";
 import { View, FlatList, StyleSheet } from 'react-native';
-import Fleur from '../../components/Fleurs/Fleur'
+import Fleur from "../../../components/Fleurs/Fleur"
 
-import { AuthContext } from "../../context/AuthContext";
+import { AuthContext } from "../../../context/AuthContext";
 
-const Home = () => {
-    const { get_flowers, delete_flower } = useContext(AuthContext);
+const GenericFleurScreen = ({get_flowers}) => {
+    const { delete_flower } = useContext(AuthContext);
     const [flowers, setFlowers] = useState(null);
 
     useEffect(async () => {
@@ -48,4 +48,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Home;
+export default GenericFleurScreen;
