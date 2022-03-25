@@ -1,5 +1,5 @@
-import {React, useState, useContext} from "react"
-import { View } from "react-native";
+import { React, useState, useContext } from "react"
+import { View, KeyboardAvoidingView } from "react-native";
 
 import { AuthContext } from "../../context/AuthContext";
 import NavTouchable from "../../components/Boutons/NavTouchable";
@@ -13,14 +13,20 @@ const Inscription = () => {
     const { register } = useContext(AuthContext);
 
     return (
-        <View style={styles.screen}>
-            <View style={styles.form}>
-                <Champ title="eMail" placeholder="eMail" setText={setEmail}/>
-                <Champ title="Mot de passe" placeholder="**********" password={true} setText={setPassword}/>
-                <Champ title="Confirme Mot de passe" placeholder="**********" password={true} setText={setConfirmPassword}/>
-                <NavTouchable text="log in" touchableStyle={ styles.signUpTouchable } onPress={async () => await register(email, password)}/>
+
+        <KeyboardAvoidingView
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            style={styles.screen}
+        >
+            <View style={styles.screen}>
+                <View style={styles.form}>
+                    <Champ title="eMail" placeholder="eMail" setText={setEmail} />
+                    <Champ title="Mot de passe" placeholder="**********" password={true} setText={setPassword} />
+                    <Champ title="Confirme Mot de passe" placeholder="**********" password={true} setText={setConfirmPassword} />
+                    <NavTouchable text="log in" touchableStyle={styles.signUpTouchable} onPress={async () => await register(email, password)} />
+                </View>
             </View>
-        </View>
+        </KeyboardAvoidingView>
     );
 }
 
@@ -29,8 +35,10 @@ export default Inscription;
 const styles = {
     screen: {
         flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
         backgroundColor: '#BCDAF5'
-    },    
+    },
     form: {
         alignItems: 'center',
         justifyContent: 'space-between',

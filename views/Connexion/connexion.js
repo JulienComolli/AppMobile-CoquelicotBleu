@@ -1,5 +1,5 @@
 import { React, useState, useContext } from "react"
-import { View } from "react-native";
+import { View, KeyboardAvoidingView } from "react-native";
 import { AuthContext } from "../../context/AuthContext";
 
 import NavTouchable from "../../components/Boutons/NavTouchable";
@@ -11,13 +11,18 @@ const Connexion = () => {
     const { log_in } = useContext(AuthContext);
 
     return (
-        <View style={styles.screen}>
-            <View style={styles.form}>
-                <Champ title="Nom d'utilisateur" placeholder="Nom d'utilisateur" setText={setEmail} />
-                <Champ title="Mot de passe" placeholder="**********" password={true} setText={setPassword} />
-                <NavTouchable text="log in" touchableStyle={styles.signInTouchable} onPress={async () => await log_in(email, password)} />
+        <KeyboardAvoidingView
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            style={styles.screen}
+        >
+            <View style={styles.screen}>
+                <View style={styles.form}>
+                    <Champ title="Nom d'utilisateur" placeholder="Nom d'utilisateur" setText={setEmail} />
+                    <Champ title="Mot de passe" placeholder="**********" password={true} setText={setPassword} />
+                    <NavTouchable text="log in" touchableStyle={styles.signInTouchable} onPress={async () => await log_in(email, password)} />
+                </View>
             </View>
-        </View>
+        </KeyboardAvoidingView>
     );
 }
 
@@ -26,6 +31,8 @@ export default Connexion;
 const styles = {
     screen: {
         flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
         backgroundColor: '#BCDAF5'
     },
     form: {

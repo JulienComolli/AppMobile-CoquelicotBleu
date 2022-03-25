@@ -1,12 +1,9 @@
 import { View, Text } from "react-native";
-import NavBouton from "../../components/Boutons/NavBouton";
 
 const FavView = () => {
     return (
         <View style={ favStyle }>
-            <Text>Voir les favoris</Text>
-            <NavBouton text="Ajouter de nouvelles fleurs en favori"
-                screen="AddFav" />
+            <Text>Option bientot disponible !</Text>
         </View>
     );
 }
@@ -14,7 +11,8 @@ const FavView = () => {
 const favStyle = {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    backgroundColor: '#BCDAF5'
 }
 
 export default FavView;

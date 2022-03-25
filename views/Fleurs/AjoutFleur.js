@@ -1,12 +1,11 @@
 import { React, useState, useContext } from "react";
-import { View, Image, StyleSheet } from "react-native";
+import { View, Image, StyleSheet, KeyboardAvoidingView } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import * as ImagePicker from 'expo-image-picker';
 
 import { AuthContext } from "../../context/AuthContext";
 import NavTouchable from "../../components/Boutons/NavTouchable";
 import Champ from "../../components/Champ/Champ";
-import { KeyboardAvoidingView } from "react-native";
 import { Platform } from "expo-modules-core";
 
 const description_rose = "La rose est la fleur du rosier, elle se caractérise avant tout par la multiplication de ses pétales imbriqués, qui lui donne sa forme caracteristique.";

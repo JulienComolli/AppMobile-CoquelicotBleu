@@ -36,6 +36,7 @@ const Home = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: '#BCDAF5'
     },
     row: {
         padding: 15,

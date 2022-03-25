@@ -1,26 +1,46 @@
 import React from "react"
-import { useContext } from "react";
-import { AuthContext } from "../../context/AuthContext.js";
+import { useState } from "react";
 
 import { View, Image, TextInput } from "react-native";
 import { FontAwesome, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { setEnabled } from "react-native/Libraries/Performance/Systrace";
 
 
 const Fleur = ({ uri, nom, description, flowerKey, delFlower }) => {
-    const { delete_flower } = useContext(AuthContext);
+    const [favColor, setFavColor] = useState();
+    const [editColor, setEditColor] = useState('black');
+    const [enable, setEnable] = useState(false);
+    let editPress = () => {
+        !enable ? setEnable(true) : setEnable(false);
+        editColor === 'black' ? setEditColor('green') : setEditColor('black')
+    }
+
+    let favPress = () => {
+        favColor === 'black' ? setFavColor('red') : setFavColor('black')
+    }
+
+    let update_flower = () => {
+        alert("Pas encore implementer !");
+        // #TODO enregistrer les modifications de champ
+    }
+
     return (
         <>
             <View style={styles.component}>{/* Composant */}
                 <Image source={{ uri: uri }} style={styles.image} />{/* Image*/}
 
                 <View style={styles.containerInfo}>{/* Infos */}
-                    <TextInput defaultValue={nom} style={styles.nom} editable={false} />
-                    <TextInput defaultValue={description} style={styles.description} editable={false} multiline={true} />
+                    <TextInput defaultValue={nom} style={styles.nom} editable={enable} />
+                    <TextInput defaultValue={description} style={styles.description} editable={enable} multiline={true} />
 
                     <View style={styles.containerIcon}>{/* Icones */}
-                        <MaterialCommunityIcons style={styles.fav} name="heart-circle" size={17} color="black" />
-                        <FontAwesome style={styles.edit} name="pencil" size={17} color="black" />
-                        <MaterialIcons style={styles.delete} name="delete" size={17} color="black" onPress={() => {delFlower(flowerKey)} }/>
+                        <MaterialCommunityIcons style={styles.fav} name="heart-circle" size={17} color={favColor} onPress={() => { favPress() }} />
+
+                        <FontAwesome style={styles.edit} name="pencil" size={17} color={editColor} onPress={() => { editPress() }} />
+
+                        {enable === true ? <FontAwesome name="check-circle" size={17} color="black" style={styles.check} onPress={() => { update_flower() }} /> : null}
+
+                        <MaterialIcons style={styles.delete} name="delete" size={17} color="black" onPress={() => { delFlower(flowerKey) }} />
                     </View>
                 </View>
             </View>
@@ -30,7 +50,7 @@ const Fleur = ({ uri, nom, description, flowerKey, delFlower }) => {
 
 export default Fleur;
 
- const styles = {
+const styles = {
     component: {
         borderWidth: 1,
         marginTop: 15,
@@ -45,15 +65,13 @@ export default Fleur;
     },
     containerInfo: {
         flex: 1,
-        backgroundColor: "#abcdef",
         padding: 10,
         paddingBottom: 5
     },
     image: {
         borderWidth: 1,
         margin: 10,
-        flex: 2,
-        backgroundColor: "purple",
+        flex: 2
     },
     nom: {
         borderWidth: 1,
@@ -62,13 +80,12 @@ export default Fleur;
         fontWeight: '900',
         textAlign: 'center',
         padding: 2,
-        backgroundColor: "blue",
         marginBottom: 7,
     },
     description: {
         borderWidth: 1,
         flex: 5,
-        backgroundColor: "pink",
+        backgroundColor: "#818FE3",
         marginBottom: 3,
         fontSize: 11,
         fontWeight: '900',
@@ -82,18 +99,22 @@ export default Fleur;
     },
     fav: {
         flex: 1,
-        paddingLeft: 10,
-        paddingRight: 10
+        paddingRight: 8
     },
     edit: {
         flex: 1,
-        paddingLeft: 10,
-        paddingRight: 10
+        paddingLeft: 8,
+        paddingRight: 8
+    },
+    check: {
+        flex: 1,
+        paddingLeft: 8,
+        paddingRight: 8
     },
     delete: {
         flex: 1,
-        paddingLeft: 10,
-        paddingRight: 10
+        paddingLeft: 8,
+        paddingRight: 8
     }
 
 };

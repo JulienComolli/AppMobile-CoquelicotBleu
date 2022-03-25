@@ -13,7 +13,7 @@ export default function Router() {
 
     return (
         <NavigationContainer>
-            { user != null ? <AppNavigationDrawer /> : <LoginNavigation />}
+            { user === null ? <AppNavigationDrawer /> : <LoginNavigation />}
         </NavigationContainer>
     )
 
