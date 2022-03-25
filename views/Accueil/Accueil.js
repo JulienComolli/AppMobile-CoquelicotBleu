@@ -10,7 +10,7 @@ const Home = () => {
 
     useEffect(async () => {
         const interval = setInterval(async () => {
-            setFlowers((await get_flowers()).reverse());
+            setFlowers((await get_flowers())?.reverse());
         }, 1000);
           return () => clearInterval(interval);
     }, []);
@@ -21,7 +21,7 @@ const Home = () => {
             <FlatList
                 style={styles.container}
                 data={flowers}
-                renderItem={({ item }) => (<Fleur nom={item.name} description={item.description} uri={"data:image/png;base64, "+item.img} flower_key={item.key}/>)}
+                renderItem={({ item }) => (<Fleur nom={item.name} description={item.description} uri={"data:image/png;base64, "+item.img} flower_key={item.key} />)}
                 keyExtractor={item => item.key}
             />
         </View>
