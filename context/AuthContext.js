@@ -32,8 +32,8 @@ export const AuthProvider = ({ children }) => {
             add_fav: async (key, userUID) =>{
                 addFav(key, userUID);
             },
-            get_fav: async (userUID) =>{
-                getFav(userUID);
+            get_favorite_flowers: async (userUID) =>{
+                await getFav(userUID);
             },
             update_profil: async (userUid, email, password, nom, prenom, img) => {
                 await updateProfil(userUid, email, password, nom, prenom, img);
@@ -70,7 +70,6 @@ export const AuthProvider = ({ children }) => {
             } else {
                 await AsyncStorage.setItem('user', JSON.stringify(user));
                 let usrData = await getUser(user.uid);
-                console.log(usrData);
                 setUserData(usrData);
             }
         } catch (e) { }

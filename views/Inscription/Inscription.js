@@ -15,7 +15,6 @@ const Inscription = () => {
     return (
 
         <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
             style={styles.screen}
         >
             <View style={styles.screen}>

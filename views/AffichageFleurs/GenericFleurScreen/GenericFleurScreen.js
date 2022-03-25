@@ -12,7 +12,7 @@ const GenericFleurScreen = ({get_flowers}) => {
         setFlowers((await get_flowers())?.reverse());
         const interval = setInterval(async () => {
             setFlowers((await get_flowers())?.reverse());
-        }, 1000);
+        }, 60000);
           return () => clearInterval(interval);
     }, []);
 

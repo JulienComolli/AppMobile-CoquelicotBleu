@@ -3,7 +3,6 @@ import { useState } from "react";
 
 import { View, Image, TextInput } from "react-native";
 import { FontAwesome, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
-import { setEnabled } from "react-native/Libraries/Performance/Systrace";
 
 
 const Fleur = ({ uri, nom, description, flowerKey, delFlower }) => {
