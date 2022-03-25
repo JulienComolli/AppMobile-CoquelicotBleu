@@ -10,15 +10,7 @@ import { KeyboardAvoidingView } from "react-native";
 import { Platform } from "expo-modules-core";
 
 const Profil = () => {
-    const { get_user, user } = useContext(AuthContext);
-    
-    // const userData = {
-    //     email: user.email,
-    //     nom: ,
-    //     prenom: "azkoda"
-    // } 
-    
- //   const { } = useContext(AuthContext);
+    const { get_user, update_profil, user, delete_user } = useContext(AuthContext);
 
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
@@ -52,8 +44,8 @@ const Profil = () => {
         >
             <ScrollView contentContainerStyle={styles.screen}>
                 <Champ title="Email" placeholder="coquelicot@email.com" setText={setEmail} defaultValue={user.email}/>
-                <Champ title="Password" placeholder="*******" setText={setPassword} />
-                <Champ title="Nom" placeholder="Benzema" setText={setNom} defaultValue={user.nom}/>
+                <Champ title="Password" placeholder="*******" password={true} setText={setPassword} />
+                {/*<Champ title="Nom" placeholder="Benzema" setText={setNom} defaultValue={user.nom}/>
                 <Champ title="Prenom" placeholder="Karim" setText={setPrenom} defaultValue={user.prenom}/>
                 <NavTouchable text="Ajouter une photo" onPress={openImagePickerAsync} touchableStyle={styles.addTouchable} />
 
@@ -66,9 +58,9 @@ const Profil = () => {
                     </> : false}
 
                 <View style={{ flexDirection: "row" }}>
-                    <NavTouchable text="Enregistrer" onPress={() => { x(email, password, nom, prenom, image.pickerResult.base64) }} touchableStyle={styles.register} />
-                    <NavTouchable text="Supprimer" onPress={() => { y() }} touchableStyle={styles.delete} />
-                </View>
+                    */}<NavTouchable text="Enregistrer" onPress={() => { update_profil(user, email, password, nom, prenom, image?.pickerResult.base64) }} touchableStyle={styles.register} />
+                    <NavTouchable text="Supprimer" onPress={() => { delete_user(user.uid) }} touchableStyle={styles.delete} />{/*
+                </View>*/}
             </ScrollView>
 
         </KeyboardAvoidingView>

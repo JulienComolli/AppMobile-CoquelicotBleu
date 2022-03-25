@@ -11,7 +11,7 @@ import { Platform } from "expo-modules-core";
 
 const description_rose = "La rose est la fleur du rosier, elle se caractérise avant tout par la multiplication de ses pétales imbriqués, qui lui donne sa forme caracteristique.";
 
-const AjoutFleur = () => {
+const AjoutFleur = ({ navigation }) => {
     const [nom, setNom] = useState();
     const [description, setDescription] = useState();
     const { new_flower } = useContext(AuthContext);
@@ -55,7 +55,13 @@ const AjoutFleur = () => {
                         <Image source={{ uri: selectedImage.pickerResult.uri }} style={stylesa.thumbnail} />
                         <AntDesign onPress={() => { setSelectedImage(null) }} name="closecircle" size={20} color="black" />
                     </View>
-                    <NavTouchable text="Create a flower" onPress={() => { new_flower(nom, description, selectedImage.pickerResult.base64) } } touchableStyle={styles.validate} />
+                    <NavTouchable text="Create a flower" onPress={() => { 
+                        new_flower(nom, description, selectedImage.pickerResult.base64);
+                        setDescription(null);
+                        setSelectedImage(null);
+                        setNom(null);
+                        navigation.navigate("Les Fleurs");
+                        } } touchableStyle={styles.validate} />
                 </> : false}
 
 

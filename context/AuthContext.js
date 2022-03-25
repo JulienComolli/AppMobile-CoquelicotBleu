@@ -1,5 +1,5 @@
 import React, { createContext, useState, useMemo, useEffect } from "react";
-import { sign_in, sign_up, add_flower, getAllFlower, updateProfil, getUser, deleteFlower } from "../firebase/Firebase";
+import { sign_in, sign_up, add_flower, getAllFlowers, updateProfil, getUser, deleteFlower, deleteUser } from "../firebase/Firebase";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 export const AuthContext = createContext();
 
@@ -20,17 +20,21 @@ export const AuthProvider = ({ children }) => {
             new_flower: async (name, description, img) => {
                 await add_flower(name, description, img);
             },
-            get_flower: async () => {
-                await getAllFlower();
+            get_flowers: async () => {
+                return await getAllFlowers();
             },
             delete_flower: async (key) => {
                 await deleteFlower(key);
             },
-            update_profil: async (email, password, nom, prenom, img) => {
-                await updateProfil(user.uid, email, password, nom, prenom, img);
+            update_profil: async (userUid, email, password, nom, prenom, img) => {
+                await updateProfil(userUid, email, password, nom, prenom, img);
             },
-            get_user: async() => {
-                await getUser(user.uid)
+            delete_user: async(userUid) => {
+                await deleteUser(userUid);
+                setUser(-1);
+            },
+            get_user: async(userUid) => {
+                await getUser(userUid)
             },
             retrieve_user: () => {
                 // Fonction pour récupérer l'utilisateur en mémoire du téléphone
@@ -57,7 +61,7 @@ export const AuthProvider = ({ children }) => {
             } else {
                 await AsyncStorage.setItem('user', JSON.stringify(user));
                 let usrData = await getUser(user.uid);
-                console.log(">> ", usrData);
+                console.log(usrData);
                 setUserData(usrData);
             }
         } catch (e) { }

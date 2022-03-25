@@ -2,7 +2,7 @@
 import { async } from '@firebase/util';
 import { initializeApp } from 'firebase/app';
 import { signInWithEmailAndPassword, getAuth, createUserWithEmailAndPassword, updateEmail, updatePassword } from "firebase/auth";
-import { getDatabase, ref, push, get, set, remove} from "firebase/database";
+import { getDatabase, ref, push, get, set, remove } from "firebase/database";
 
 
 const firebaseConfig = {
@@ -26,15 +26,15 @@ const auth = getAuth(app);
  * @param {string} password 
  * @returns Retourne la session de l'utilisateur
  */
-export async function sign_in (email, password) {
+export async function sign_in(email, password) {
   if (email !== "" && password !== "") {
     return await signInWithEmailAndPassword(auth, email, password)
-    .then((res) => {
-      return res.user;
-    })
-    .catch(() => {
-      return null;
-    })
+      .then((res) => {
+        return res.user;
+      })
+      .catch(() => {
+        return null;
+      })
   }
 }
 
@@ -44,15 +44,15 @@ export async function sign_in (email, password) {
  * @param {string} password 
  * @returns Retourne la session de l'utilisateur
  */
-export async function sign_up(email, password){
+export async function sign_up(email, password) {
   if (email !== "" && password !== "") {
     return await createUserWithEmailAndPassword(auth, email, password)
-    .then((res) => {
-      return res.user;
-    })
-    .catch(() => {
-      return null;
-    })
+      .then((res) => {
+        return res.user;
+      })
+      .catch(() => {
+        return null;
+      })
   }
 }
 
@@ -72,37 +72,35 @@ export async function add_flower(name, description, img) {
   }
 }
 
-/**
- * @returns { Array<String> } Détails de toutes les fleurs.  
- */
-export async function getAllFlower(){
-  keys = await get(ref(data, 'Fleurs/'))
-  .then((snapshot) => {
-    return Object.keys(snapshot.val())
-  })
-  .catch((err) => {
-    console.log(err);
-    return null;
-  })
 
-  if (keys == null)
-    return null
-  
-  let listFlower = []
-
-  for (let i = 0; i < keys.length; i++){
-    await get(ref(data, 'Fleurs/' + keys[i]))
+export async function getAllFlowers() {
+  let keys = await get(ref(data, 'Fleurs/'))
     .then((snapshot) => {
-      listFlower.push({
-        "key" : keys[i],
-        "description" : snapshot.val().description, 
-        "name" : snapshot.val().name, 
-        "img": snapshot.val().img
-      })
+      return Object.keys(snapshot.val())
     })
     .catch((err) => {
-      console.log(err)
-    });
+      console.log(err);
+      return null;
+    })
+
+  if (keys == null)
+    return null;
+
+  let listFlower = []
+
+  for (let i = 0; i < keys.length; i++) {
+    await get(ref(data, 'Fleurs/' + keys[i]))
+      .then((snapshot) => {
+        listFlower.push({
+          "key": keys[i],
+          "description": snapshot.val().description,
+          "name": snapshot.val().name,
+          "img": snapshot.val().base64
+        })
+      })
+      .catch((err) => {
+        console.log(err)
+      });
   }
 
   return listFlower;
@@ -117,30 +115,29 @@ export async function getAllFlower(){
  * @param {string} prenom Nouveau prénom
  * @param {string} img Nouvel image de profil
  */
-export async function updateProfil(user, email, password, nom, prenom, img){
-  await set(ref(data, "Utilisateurs/" + user.uid), {
-    nom : nom,
-    prenom : prenom,
-    img : img
+export async function updateProfil(user, email, password, nom, prenom, img) {
+  /*await set(ref(data, "Utilisateurs/" + user.uid), {
+    Nom: nom,
+    Prenom: prenom,
+    Img: img
   })
-  .catch((err) => {
-    console.log(err)
-    return false;
-  })
-
-  if (user.email != email){
-    await updateEmail(user, email)
-    .catch((err) => {
-      console.log(err)
-    })
-  }
-
-  if (password != "" || password != undefined || password != null) {
-    await updatePassword(user, password)
     .catch((err) => {
       console.log(err)
       return false;
-    })
+    })*/
+  if (user.email != email) {
+    await updateEmail(auth.currentUser, email)
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
+  if (password != "" || password != undefined || password != null) {
+    await updatePassword(auth.currentUser, password)
+      .catch((err) => {
+        console.log(err)
+        return false;
+      })
   }
 }
 
@@ -148,15 +145,15 @@ export async function updateProfil(user, email, password, nom, prenom, img){
  * Supprime la fleur indiquée
  * @param {String} key ID de la fleur
  */
-export async function deleteFlower(key){
-  return await remove(ref("Fleurs/" + key))
-  .then(() => {
-    return true;
-  })
-  .catch((err) => {
-    console.log(err)
-    return false;
-  })
+export async function deleteFlower(key) {
+  return await remove(ref(data, "Fleurs/" + key))
+    .then(() => {
+      return true;
+    })
+    .catch((err) => {
+      console.log(err)
+      return false;
+    })
 }
 
 /**
@@ -166,13 +163,25 @@ export async function deleteFlower(key){
  */
 export async function getUser(key) {
   return await get(ref(data, "Utilisateurs/" + key))
-  .then((user) => {
-    return user.val(); 
-  })
-  .catch((err) => {
-    return null;
-  })
+    .then((user) => {
+      return user.val();
+    })
+    .catch((err) => {
+      return null;
+    })
 }
-
-
-
+/**
+ * Supprime la fleur indiquée
+ * @param {String} key ID de la fleur
+ */
+export async function deleteUser(key) {
+  return await remove(ref(data, "Utilisateurs/" + key))
+    .then(() => {
+      auth.currentUser.delete();
+      return true;
+    })
+    .catch((err) => {
+      console.log(err)
+      return false;
+    })
+}

@@ -29,7 +29,8 @@ export default function ApplicationDrawer() {
 }
 
 export function DrawerContent(props) {
-  const { unlogUser, user } = useContext(AuthContext);
+  const { unlogUser, user, userData } = useContext(AuthContext);
+
   return (
     <View style={{ flex: 1, backgroundColor: "#C9C9F5" }}>
       <DrawerContentScrollView {...props}>
@@ -79,7 +80,7 @@ export function DrawerContent(props) {
           icon={({ color, size }) => (
             <Icon name="exit-to-app" color={color} size={size} />
           )}
-          label="Sign Out"
+          label="Se Deconnecter"
           onPress={() => {
             unlogUser();
           }}
