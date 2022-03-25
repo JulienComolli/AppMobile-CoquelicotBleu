@@ -8,8 +8,8 @@ const FavView = () => {
     const { get_favorite_flowers } = useContext(AuthContext);
 
     return (
-        //<GenericFleurScreen get_flowers={get_favorite_flowers} />
-        <View></View>
+        <GenericFleurScreen get_flowers={get_favorite_flowers} />
+        //<View></View>
     );
 }
 

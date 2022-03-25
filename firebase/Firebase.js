@@ -207,6 +207,9 @@ export async function addFav (key, userUID) {
 export async function getFav (userUID) {
   await get(ref(data, "Utilisateurs/" + userUID + "/Favoris"))
   .then((snapshot) => {
+    
+      if (snapshot.val() == null)
+        return null;
       
     keys = Object.keys(snapshot.val())
     fav = []

@@ -9,6 +9,7 @@ const Fleur = ({ uri, nom, description, flowerKey, delFlower }) => {
     const [favColor, setFavColor] = useState();
     const [editColor, setEditColor] = useState('black');
     const [enable, setEnable] = useState(false);
+    
     let editPress = () => {
         !enable ? setEnable(true) : setEnable(false);
         editColor === 'black' ? setEditColor('green') : setEditColor('black')
@@ -19,8 +20,8 @@ const Fleur = ({ uri, nom, description, flowerKey, delFlower }) => {
     }
 
     let update_flower = () => {
-        alert("Pas encore implementer !");
         // #TODO enregistrer les modifications de champ
+
     }
 
     return (
